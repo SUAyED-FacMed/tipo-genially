@@ -1,0 +1,100 @@
+---
+// PresentationLayout.astro — shell for all Genially-style presentations
+interface Props {
+  title: string;
+  description?: string;
+  totalSlides: number;
+}
+const { title, description = '', totalSlides } = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content={description} />
+  <title>{title}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <style is:global>
+    @import "../styles/global.css";
+  </style>
+</head>
+<body>
+  <div class="presentation-wrapper" id="presentation">
+    <!-- Slides track -->
+    <div class="slides-track" id="slides-track">
+      <slot />
+    </div>
+
+    <!-- Navigation bar -->
+    <nav class="nav-bar" role="navigation" aria-label="Navegación de presentación">
+      <button class="nav-btn" id="btn-prev" aria-label="Diapositiva anterior" disabled>
+        &#8592;
+      </button>
+      <div class="nav-dots" id="nav-dots" role="tablist" aria-label="Diapositivas">
+        {Array.from({ length: totalSlides }).map((_, i) => (
+          <button
+            class={`nav-dot${i === 0 ? ' active' : ''}`}
+            data-index={i}
+            role="tab"
+            aria-selected={i === 0}
+            aria-label={`Ir a diapositiva ${i + 1}`}
+            id={`dot-${i}`}
+          />
+        ))}
+      </div>
+      <button class="nav-btn" id="btn-next" aria-label="Siguiente diapositiva">
+        &#8594;
+      </button>
+      <span class="nav-counter" id="nav-counter" aria-live="polite">
+        1 / {totalSlides}
+      </span>
+    </nav>
+  </div>
+
+  <script define:vars={{ totalSlides }}>
+    (() => {
+      let current = 0;
+      const track = document.getElementById('slides-track');
+      const btnPrev = document.getElementById('btn-prev');
+      const btnNext = document.getElementById('btn-next');
+      const counter = document.getElementById('nav-counter');
+      const dots = document.querySelectorAll('.nav-dot');
+
+      function goTo(index) {
+        if (index < 0 || index >= totalSlides) return;
+        current = index;
+        track.style.transform = `translateX(-${current * 100}vw)`;
+        btnPrev.disabled = current === 0;
+        btnNext.disabled = current === totalSlides - 1;
+        counter.textContent = `${current + 1} / ${totalSlides}`;
+        dots.forEach((d, i) => {
+          d.classList.toggle('active', i === current);
+          d.setAttribute('aria-selected', i === current);
+        });
+        // Trigger slide animations by re-adding the data-active attribute
+        const slides = document.querySelectorAll('.slide');
+        slides.forEach((s, i) => s.setAttribute('data-active', i === current ? 'true' : 'false'));
+      }
+
+      btnPrev.addEventListener('click', () => goTo(current - 1));
+      btnNext.addEventListener('click', () => goTo(current + 1));
+      dots.forEach((d) => d.addEventListener('click', () => goTo(+d.dataset.index)));
+
+      // Keyboard navigation
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') goTo(current + 1);
+        if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   goTo(current - 1);
+      });
+
+      // Expose globally for index links
+      window.goToSlide = goTo;
+
+      // Init
+      goTo(0);
+    })();
+  </script>
+</body>
+</html>

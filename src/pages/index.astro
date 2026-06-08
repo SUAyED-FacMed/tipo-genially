@@ -1,0 +1,611 @@
+---
+import PresentationLayout from '../layouts/PresentationLayout.astro';
+import '../styles/global.css';
+
+const TOTAL_SLIDES = 9;
+
+// ── Data ──────────────────────────────────────────────────
+const elements = [
+  {
+    num: '01',
+    title: 'Conceptual',
+    question: '¿Qué es la enfermedad?',
+    color: 'var(--color-card-ochre)',
+    items: ['Un castigo divino', 'Un desequilibrio humoral', 'Una lesión en un órgano', 'Una carga genética'],
+  },
+  {
+    num: '02',
+    title: 'Diagnóstica',
+    question: '¿Cómo se reconoce la enfermedad?',
+    color: 'var(--color-card-mauve)',
+    items: ['Descripción del pulso', 'Narrativa de la persona paciente', 'Exámenes de laboratorio'],
+  },
+  {
+    num: '03',
+    title: 'Terapéutica',
+    question: '¿Cómo y con qué se interviene?',
+    color: 'var(--color-card-slate)',
+    items: ['Sangrías y dieta', 'Rituales', 'Medicamentos', 'Cirugía', 'Psicoterapia'],
+  },
+  {
+    num: '04',
+    title: 'Profesional',
+    question: '¿Quién es el sanador o experto?',
+    color: 'var(--color-card-moss)',
+    items: ['Un sacerdote acompañante', 'Médica o médico reconocido oficialmente', 'Algún especialista'],
+  },
+];
+
+const models = [
+  { title: 'Medicinas Antiguas', desc: 'Modelo mágico, empírico y teúrgico. Médico-sacerdote o chamán.', icon: '🌿', color: '#C9A87C' },
+  { title: 'Modelo Humoral', desc: 'Época antigua. Hipócrates a Galeno. Equilibrio de los cuatro humores.', icon: '⚕️', color: '#8BA4C4' },
+  { title: 'Humoral-Teocéntrico', desc: 'Edad Media. Medicina cristiana y monástica. Hospitales (s. IV).', icon: '✝️', color: '#9C8AB5' },
+  { title: 'Anatomopatológico', desc: 'Medicina del Renacimiento. Enseñanza clínica. Cirujano. Siglo XIX.', icon: '🔬', color: '#7EA88A' },
+  { title: 'Modelo Biomédico', desc: 'Teoría bacteriológica. Medicina de laboratorio y patente. Siglo XX.', icon: '🧬', color: '#C47E7E' },
+];
+
+const timeline = [
+  { model: 'Medicinas Antiguas', era: 'Culturas Antiguas', dates: 'Prehistoria — culturas antiguas', emoji: '🏺' },
+  { model: 'Modelo Humoral', era: 'Etapa Greco-romana', dates: 'Siglos IV a.C. — V d.C.', emoji: '🏛️' },
+  { model: 'Humoral Teocéntrico', era: 'Edad Media', dates: 'Siglo V — XV', emoji: '⛪' },
+  { model: 'Anatomopatológico', era: 'Etapa Moderna', dates: 'Siglo XV — XIX', emoji: '🔭' },
+  { model: 'Modelo Biomédico', era: 'Etapa Contemporánea', dates: 'Siglo XX — Actualidad', emoji: '🏥' },
+];
+---
+
+<PresentationLayout title="¿Qué es un modelo médico? — Unidad 2" description="Presentación interactiva sobre modelos médicos en la historia. Recursos educativos de historia de la medicina." totalSlides={TOTAL_SLIDES}>
+
+  <!-- ═══════════════════════════════════════════════════
+       SLIDE 0 — PORTADA
+  ══════════════════════════════════════════════════════ -->
+  <section class="slide bg-slide-white" id="slide-0" data-slide="0" style="display:flex;">
+    <!-- Yellow decorative strip top -->
+    <div style="position:absolute;top:0;left:0;right:0;height:10px;background:var(--color-accent);z-index:2;"></div>
+    <!-- Yellow decorative strip bottom -->
+    <div style="position:absolute;bottom:0;left:0;right:0;height:10px;background:var(--color-accent);z-index:2;"></div>
+
+    <!-- Left: image panel -->
+    <div style="flex:0 0 48%;height:100%;position:relative;overflow:hidden;">
+      <img src="/images/portada.png" alt="Médico romano atendiendo a un soldado herido, fresco antiguo" style="width:100%;height:100%;object-fit:cover;object-position:center;" />
+      <!-- Corner arch decoration -->
+      <div style="position:absolute;bottom:-4rem;left:-4rem;width:14rem;height:14rem;border:8px solid var(--color-accent);border-radius:50%;opacity:0.6;"></div>
+    </div>
+
+    <!-- Right: content panel -->
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem;background:var(--color-surface);position:relative;overflow:hidden;">
+      <!-- Big decorative circle -->
+      <div class="deco-circle" style="width:18rem;height:18rem;background:var(--color-accent);top:-5rem;right:-5rem;opacity:0.9;z-index:0;"></div>
+      <div class="deco-ring" style="width:12rem;height:12rem;border-color:var(--color-accent);top:2rem;right:2rem;z-index:1;opacity:0.5;"></div>
+
+      <div style="position:relative;z-index:2;text-align:center;max-width:420px;" class="stagger-1">
+        <h1 style="font-family:var(--font-display);font-size:clamp(2.5rem,5vw,4rem);font-weight:900;color:var(--color-primary);line-height:1.1;margin-bottom:2rem;">
+          ¿Qué es un<br/>modelo<br/>médico?
+        </h1>
+        <p style="font-size:1rem;color:var(--color-muted);font-weight:500;letter-spacing:0.05em;">
+          Alba Dolores Morales Cosme
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       SLIDE 1 — ÍNDICE
+  ══════════════════════════════════════════════════════ -->
+  <section class="slide bg-slide-white" id="slide-1" data-slide="1">
+    <!-- Decorative yellow borders -->
+    <div style="position:absolute;top:0;left:0;right:0;height:14px;background:var(--color-accent);z-index:2;"></div>
+    <div style="position:absolute;bottom:0;left:0;right:0;height:14px;background:var(--color-accent);z-index:2;"></div>
+    <div style="position:absolute;top:0;left:0;bottom:0;width:14px;background:var(--color-accent);z-index:2;"></div>
+    <div style="position:absolute;top:0;right:0;bottom:0;width:14px;background:var(--color-accent);z-index:2;"></div>
+
+    <div style="height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 6rem;">
+      <h2 style="font-family:var(--font-display);font-size:clamp(2.5rem,4vw,3.5rem);font-weight:900;color:var(--color-primary);margin-bottom:2.5rem;" class="stagger-1">Índice</h2>
+
+      <ol style="list-style:none;width:100%;max-width:600px;display:flex;flex-direction:column;gap:1.1rem;">
+        {[
+          { num: 1, label: '¿Qué es un modelo médico?', slide: 2 },
+          { num: 2, label: 'Elementos que reconstruyen un modelo médico', slide: 3 },
+          { num: 3, label: 'Modelos médicos más estudiados', slide: 4 },
+          { num: 4, label: 'Perspectiva diacrónica/sincrónica', slide: 5 },
+          { num: 5, label: 'Diacronía y sincronía en la actualidad', slide: 7 },
+        ].map((item, i) => (
+          <li class={`stagger-${i + 1}`}>
+            <button
+              onclick={`window.goToSlide(${item.slide})`}
+              style={`
+                width:100%;display:flex;align-items:center;gap:1.25rem;
+                background:none;border:none;cursor:pointer;padding:0.75rem 0;
+                border-bottom:2px solid oklch(93% 0.01 264);
+                text-align:left;
+                transition:border-color 0.2s;
+              `}
+              class="index-item"
+              aria-label={`Ir a: ${item.label}`}
+            >
+              <span style={`
+                width:2.5rem;height:2.5rem;border-radius:50%;
+                background:var(--color-accent);
+                color:var(--color-primary);font-weight:900;
+                display:flex;align-items:center;justify-content:center;
+                font-family:var(--font-display);font-size:1rem;
+                flex-shrink:0;
+              `}>{item.num}</span>
+              <span style="font-weight:700;color:var(--color-primary);font-size:1.05rem;flex:1;">{item.label}</span>
+              <span style={`
+                width:2rem;height:2rem;border-radius:50%;
+                background:var(--color-primary);color:white;
+                display:flex;align-items:center;justify-content:center;
+                font-size:1rem;flex-shrink:0;
+              `}>→</span>
+            </button>
+          </li>
+        ))}
+      </ol>
+    </div>
+    <style>
+      .index-item:hover { border-color: var(--color-primary) !important; }
+    </style>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       SLIDE 2 — ¿QUÉ ES UN MODELO MÉDICO?
+  ══════════════════════════════════════════════════════ -->
+  <section class="slide" id="slide-2" data-slide="2" style="display:flex;background:white;">
+    <!-- Left image -->
+    <div style="flex:0 0 42%;position:relative;overflow:hidden;">
+      <img src="/images/modelos.png" alt="Atención médica en diferentes contextos históricos" style="width:100%;height:100%;object-fit:cover;" />
+      <div style="position:absolute;inset:0;background:linear-gradient(to right, transparent 70%, white 100%);"></div>
+    </div>
+
+    <!-- Right content -->
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:center;padding:3rem 3rem 5rem;overflow-y:auto;">
+      <div style="display:inline-block;background:var(--color-accent);color:var(--color-primary);font-weight:800;font-size:0.85rem;padding:0.35rem 1rem;border-radius:var(--radius-full);margin-bottom:1.5rem;letter-spacing:0.08em;" class="stagger-1">
+        1 — DEFINICIÓN
+      </div>
+      <h2 style="font-family:var(--font-display);font-size:clamp(1.6rem,2.5vw,2.5rem);font-weight:800;color:var(--color-primary);margin-bottom:1.5rem;line-height:1.2;" class="stagger-2">
+        ¿Qué es un<br/>modelo médico?
+      </h2>
+
+      <div style="display:flex;flex-direction:column;gap:1.25rem;max-width:560px;" class="stagger-3">
+        <div style="background:oklch(95% 0.02 264);border-left:4px solid var(--color-primary);padding:1.25rem 1.5rem;border-radius:0 var(--radius-md) var(--radius-md) 0;">
+          <p style="font-size:0.95rem;line-height:1.7;color:var(--color-foreground);">
+            Un <strong>modelo médico</strong> es un marco que se construye para abordar la manera en la que una sociedad explica qué es la enfermedad, cómo se reconoce en el cuerpo, quién la atiende, con qué se trata y qué relaciones establecen quienes son pacientes con las sanadoras o los sanadores.
+          </p>
+        </div>
+
+        <div style="background:oklch(98% 0.02 85);border-left:4px solid var(--color-accent);padding:1.25rem 1.5rem;border-radius:0 var(--radius-md) var(--radius-md) 0;">
+          <p style="font-size:0.85rem;line-height:1.7;color:var(--color-foreground);">
+            <strong>Nota:</strong> Un <em>modelo</em> no es igual a un <em>sistema médico</em>. El modelo es una categoría de análisis histórico para reconstruir explicaciones, prácticas y valores. Un sistema médico implica una estructura social, cultural e institucional donde se articulan saberes, prácticas, actores, legitimidades y tecnologías.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       SLIDE 3 — ELEMENTOS DEL MODELO
+  ══════════════════════════════════════════════════════ -->
+  <section class="slide bg-slide-light" id="slide-3" data-slide="3">
+    <div style="height:100%;display:flex;flex-direction:column;padding:2.5rem 3rem 6rem;overflow:hidden;">
+      <p style="font-size:0.9rem;text-align:center;max-width:700px;margin:0 auto 2rem;color:var(--color-foreground);line-height:1.6;font-style:italic;" class="stagger-1">
+        Al abordar, desde la historia, las características de un modelo médico se pueden reconocer aspectos relacionados con el conocimiento, así como elementos culturales y sociales. Por ejemplo, los siguientes:
+      </p>
+
+      <div style="flex:1;display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;align-items:stretch;" class="stagger-2">
+        {elements.map((el, i) => (
+          <div
+            class="postit-card"
+            style={`background:${el.color};color:white;`}
+          >
+            <!-- Clip decoration -->
+            <div style="position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:20px;height:20px;background:oklch(80% 0 0 / 0.4);border-radius:4px 4px 0 0;"></div>
+
+            <div style="font-family:var(--font-display);font-size:2rem;font-weight:900;margin-bottom:0.75rem;opacity:0.5;">{el.num}</div>
+            <h3 style="font-family:var(--font-display);font-size:1.15rem;font-weight:800;line-height:1.2;">{el.title}</h3>
+
+            <button
+              class="postit-btn"
+              data-modal={`modal-el-${i}`}
+              aria-label={`Ver información de ${el.title}`}
+              onclick={`document.getElementById('modal-el-${i}').classList.remove('hidden')`}
+            >+</button>
+          </div>
+        ))}
+      </div>
+
+      <p style="text-align:center;font-size:0.8rem;color:var(--color-muted);margin-top:1rem;">
+        Además, también se implican los <strong>recursos y espacios de atención</strong>: templo, botica, hospital o plataforma digital.
+      </p>
+    </div>
+
+    <!-- Modals for each element -->
+    {elements.map((el, i) => (
+      <div id={`modal-el-${i}`} class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby={`modal-el-${i}-title`}
+        onclick={`if(event.target===this)this.classList.add('hidden')`}>
+        <div class="modal-box" style={`border-top:6px solid ${el.color};`}>
+          <button class="modal-close" onclick={`document.getElementById('modal-el-${i}').classList.add('hidden')`} aria-label="Cerrar">✕</button>
+          <div style="font-family:var(--font-display);font-size:2.5rem;font-weight:900;color:var(--color-primary);margin-bottom:0.5rem;">{el.num}</div>
+          <h3 id={`modal-el-${i}-title`} style="font-family:var(--font-display);font-size:1.4rem;font-weight:800;color:var(--color-primary);margin-bottom:0.5rem;">{el.question}</h3>
+          <p style="font-size:0.85rem;color:var(--color-muted);margin-bottom:1.25rem;">({el.title})</p>
+          <ul style="display:flex;flex-direction:column;gap:0.75rem;list-style:none;">
+            {el.items.map((item) => (
+              <li style="display:flex;align-items:center;gap:0.75rem;">
+                <span style="width:0.5rem;height:0.5rem;border-radius:50%;background:var(--color-accent);flex-shrink:0;display:inline-block;"></span>
+                <span style="font-size:0.95rem;">{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    ))}
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       SLIDE 4 — MODELOS MÉDICOS MÁS ESTUDIADOS
+  ══════════════════════════════════════════════════════ -->
+  <section class="slide bg-slide-white" id="slide-4" data-slide="4">
+    <div style="height:100%;display:flex;flex-direction:column;padding:2.5rem 3rem 6rem;overflow:hidden;">
+      <div style="text-align:center;margin-bottom:2rem;" class="stagger-1">
+        <div style="display:inline-block;background:var(--color-accent);color:var(--color-primary);font-weight:800;font-size:0.85rem;padding:0.35rem 1rem;border-radius:var(--radius-full);margin-bottom:1rem;letter-spacing:0.08em;">3 — MODELOS</div>
+        <h2 style="font-family:var(--font-display);font-size:clamp(1.8rem,3vw,2.8rem);font-weight:900;color:var(--color-primary);">Modelos médicos más estudiados</h2>
+        <p style="color:var(--color-muted);font-size:0.9rem;margin-top:0.5rem;max-width:600px;margin-left:auto;margin-right:auto;">Son construcciones históricas porque cada uno surge en un contexto particular y se va transformando en circunstancias diversas.</p>
+      </div>
+
+      <div style="flex:1;display:grid;grid-template-columns:repeat(5,1fr);gap:1.25rem;align-items:stretch;" class="stagger-2">
+        {models.map((m, i) => (
+          <div style={`
+            background:${m.color};
+            border-radius:var(--radius-md);
+            padding:1.5rem 1.25rem;
+            display:flex;flex-direction:column;
+            color:white;
+            box-shadow:var(--shadow-card);
+            transition:transform 0.25s,box-shadow 0.25s;
+            animation:var(--animate-slide-up);
+            animation-delay:${(i+1)*0.1}s;
+            animation-fill-mode:both;
+          `}
+            class="postit-card"
+          >
+            <div style="font-size:2.5rem;margin-bottom:0.75rem;">{m.icon}</div>
+            <h3 style="font-family:var(--font-display);font-size:1rem;font-weight:800;margin-bottom:0.75rem;line-height:1.3;">{m.title}</h3>
+            <p style="font-size:0.78rem;opacity:0.9;line-height:1.5;flex:1;">{m.desc}</p>
+          </div>
+        ))}
+      </div>
+
+      <!-- Special "+Info" card: new model -->
+      <div style="margin-top:1.25rem;" class="stagger-6">
+        <div style="background:var(--color-primary);color:white;border-radius:var(--radius-md);padding:1.25rem 1.5rem;display:flex;align-items:center;gap:1.5rem;box-shadow:var(--shadow-card);">
+          <span style="font-size:1.75rem;">🤖</span>
+          <div style="flex:1;">
+            <div style="font-size:0.7rem;opacity:0.7;letter-spacing:0.1em;margin-bottom:0.25rem;">MODELO EMERGENTE</div>
+            <strong style="font-family:var(--font-display);font-size:1.05rem;">Modelo Digital-Tecnológico</strong>
+            <p style="font-size:0.8rem;opacity:0.85;margin-top:0.25rem;">Recientemente, se ha reconocido que se está conformando un modelo que podría llamarse digital-tecnológico.</p>
+          </div>
+          <div style="background:var(--color-accent);color:var(--color-primary);border-radius:var(--radius-full);padding:0.4rem 1rem;font-size:0.8rem;font-weight:800;white-space:nowrap;cursor:pointer;animation:var(--animate-pulse-glow);"
+            onclick="document.getElementById('modal-new-model').classList.remove('hidden')"
+          >+ Info</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal: new model -->
+    <div id="modal-new-model" class="modal-overlay hidden" role="dialog" aria-modal="true"
+      onclick="if(event.target===this)this.classList.add('hidden')">
+      <div class="modal-box" style="border-top:6px solid var(--color-primary);">
+        <button class="modal-close" onclick="document.getElementById('modal-new-model').classList.add('hidden')">✕</button>
+        <div style="font-size:3rem;margin-bottom:1rem;">🤖</div>
+        <h3 style="font-family:var(--font-display);font-size:1.5rem;font-weight:800;color:var(--color-primary);margin-bottom:1rem;">Modelo Digital-Tecnológico</h3>
+        <p style="line-height:1.7;color:var(--color-foreground);font-size:0.95rem;">
+          Recientemente, se ha reconocido que se está conformando un nuevo modelo médico que podría llamarse <strong>digital-tecnológico</strong>. Este modelo incorpora inteligencia artificial, telemedicina, análisis de big data genómico y dispositivos conectados en red para el diagnóstico y tratamiento de enfermedades.
+        </p>
+        <div style="margin-top:1.25rem;background:oklch(95% 0.02 264);border-radius:var(--radius-md);padding:1rem;">
+          <p style="font-size:0.85rem;color:var(--color-muted);">
+            Referencia: Fuller, Jonathan. (2025). <em>The new medical model.</em> En The new modern medicine. Oxford University Press.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       SLIDE 5 — LÍNEA DE TIEMPO DIACRÓNICA
+  ══════════════════════════════════════════════════════ -->
+  <section class="slide" id="slide-5" data-slide="5" style="background:oklch(97% 0.008 264);">
+    <div style="height:100%;display:flex;flex-direction:column;padding:2rem 3rem 6rem;overflow:hidden;">
+      <div style="text-align:center;margin-bottom:1.5rem;" class="stagger-1">
+        <div style="display:inline-block;background:var(--color-accent);color:var(--color-primary);font-weight:800;font-size:0.85rem;padding:0.35rem 1rem;border-radius:var(--radius-full);margin-bottom:1rem;letter-spacing:0.08em;">4 — PERSPECTIVA DIACRÓNICA</div>
+        <h2 style="font-family:var(--font-display);font-size:clamp(1.6rem,2.5vw,2.4rem);font-weight:900;color:var(--color-primary);">Línea del tiempo de los modelos médicos</h2>
+        <p style="font-size:0.85rem;color:var(--color-muted);margin-top:0.4rem;">Haz clic en cada época para ver más información</p>
+      </div>
+
+      <!-- Timeline connector line -->
+      <div style="position:relative;flex:1;display:flex;flex-direction:column;justify-content:center;" class="stagger-2">
+        <div style="position:absolute;top:calc(3.5rem + 4px);left:8%;right:8%;height:3px;background:linear-gradient(to right,var(--color-accent),var(--color-primary));border-radius:4px;z-index:0;"></div>
+
+        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:1rem;position:relative;z-index:1;">
+          {timeline.map((item, i) => (
+            <div
+              class="timeline-item"
+              id={`tl-item-${i}`}
+              onclick={`toggleTimeline(${i})`}
+              role="button"
+              tabindex="0"
+              aria-expanded="false"
+              style={`animation:var(--animate-slide-up);animation-delay:${0.1 + i * 0.12}s;animation-fill-mode:both;`}
+            >
+              <div class="timeline-circle" style="font-size:3rem;line-height:1;">
+                {item.emoji}
+              </div>
+              <div style="font-family:var(--font-display);font-size:0.8rem;font-weight:800;color:var(--color-primary);text-align:center;line-height:1.3;">{item.model}</div>
+              <div style="font-size:0.75rem;font-weight:600;color:var(--color-foreground);text-align:center;">{item.era}</div>
+              <div class="timeline-subtitle" id={`tl-sub-${i}`}>{item.dates}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Extended info table -->
+      <div style="margin-top:1.5rem;background:white;border-radius:var(--radius-md);padding:1.25rem;box-shadow:var(--shadow-card);overflow-x:auto;" class="stagger-3">
+        <table style="width:100%;border-collapse:collapse;font-size:0.75rem;">
+          <thead>
+            <tr style="background:var(--color-primary);color:white;">
+              <th style="padding:0.6rem 1rem;text-align:left;border-radius:var(--radius-sm) 0 0 var(--radius-sm);">Modelo</th>
+              <th style="padding:0.6rem 1rem;text-align:left;">Época</th>
+              <th style="padding:0.6rem 1rem;text-align:left;">Características</th>
+              <th style="padding:0.6rem 1rem;text-align:left;border-radius:0 var(--radius-sm) var(--radius-sm) 0;">Periodo</th>
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              { model: 'Medicinas Antiguas', era: 'Prehistoria / Culturas Antiguas', chars: 'Modelo mágico, empírico y teúrgico. Médico-sacerdote o chamán.', period: 'Prehistoria — Culturas antiguas' },
+              { model: 'Humoral', era: 'Época Antigua', chars: 'Hipócrates a Galeno. Esculapio. Templos-escuela.', period: 'Siglos IV a. C. — IV d. C.' },
+              { model: 'Humoral-Teúrgico', era: 'Edad Media', chars: 'Medicina cristiana y medieval. Medicina monástica. Hospitales (s. IV). Universidades (s. XI).', period: 'S. V — XV' },
+              { model: 'Anatomopatológico', era: 'Moderna / Renacimiento', chars: 'Revaloración anatómica. Primeros instrumentos. Enseñanza clínica. Cirujano.', period: 'Siglos XIV — XIX' },
+              { model: 'Biomédico', era: 'Contemporánea', chars: 'Teoría bacteriológica. Medicina de laboratorio. Medicina de patente.', period: 'Siglo XX — hoy' },
+            ].map((row, i) => (
+              <tr style={`background:${i % 2 === 0 ? 'white' : 'oklch(97% 0.008 264)'};`}>
+                <td style="padding:0.6rem 1rem;font-weight:700;color:var(--color-primary);">{row.model}</td>
+                <td style="padding:0.6rem 1rem;color:var(--color-muted);">{row.era}</td>
+                <td style="padding:0.6rem 1rem;">{row.chars}</td>
+                <td style="padding:0.6rem 1rem;font-style:italic;color:var(--color-muted);">{row.period}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       SLIDE 6 — PERSPECTIVA SINCRÓNICA (texto + ejemplo)
+  ══════════════════════════════════════════════════════ -->
+  <section class="slide bg-slide-white" id="slide-6" data-slide="6">
+    <div style="height:100%;display:flex;gap:0;overflow:hidden;">
+      <!-- Left: text -->
+      <div style="flex:0 0 52%;padding:2.5rem 2.5rem 6rem;display:flex;flex-direction:column;justify-content:center;overflow-y:auto;">
+        <div style="display:inline-block;background:var(--color-accent);color:var(--color-primary);font-weight:800;font-size:0.85rem;padding:0.35rem 1rem;border-radius:var(--radius-full);margin-bottom:1.5rem;letter-spacing:0.08em;" class="stagger-1">
+          4 — PERSPECTIVA SINCRÓNICA
+        </div>
+
+        <div style="display:flex;gap:2rem;margin-bottom:1.5rem;" class="stagger-2">
+          <div style="flex:1;background:oklch(95% 0.02 264);border-radius:var(--radius-md);padding:1.25rem;border-top:4px solid var(--color-primary);">
+            <h3 style="font-family:var(--font-display);font-size:1rem;font-weight:800;color:var(--color-primary);margin-bottom:0.5rem;">→ Diacrónica</h3>
+            <p style="font-size:0.82rem;line-height:1.6;color:var(--color-foreground);">A lo largo del tiempo. Permite estudiar cómo ha cambiado el conocimiento anatómico, los hospitales, etc. Perspectiva de continuidad y desarrollo lineal.</p>
+          </div>
+          <div style="flex:1;background:oklch(98% 0.02 85);border-radius:var(--radius-md);padding:1.25rem;border-top:4px solid var(--color-accent);">
+            <h3 style="font-family:var(--font-display);font-size:1rem;font-weight:800;color:var(--color-primary);margin-bottom:0.5rem;">⊙ Sincrónica</h3>
+            <p style="font-size:0.82rem;line-height:1.6;color:var(--color-foreground);">Un momento histórico en detalle. Reconoce que más de un modelo médico puede estar ocurriendo <em>al mismo tiempo</em>, con múltiples factores: científicos, sociales, culturales y artísticos.</p>
+          </div>
+        </div>
+
+        <div style="background:var(--color-primary);color:white;border-radius:var(--radius-md);padding:1.25rem 1.5rem;" class="stagger-3">
+          <h4 style="font-family:var(--font-display);font-size:1rem;font-weight:800;margin-bottom:0.5rem;">⚠ Importante</h4>
+          <p style="font-size:0.85rem;line-height:1.6;opacity:0.9;">
+            Aunque un modelo caracterice una época, <strong>nunca es el único, ni elimina al anterior, ni desaparece completamente</strong> en la siguiente etapa.
+          </p>
+        </div>
+      </div>
+
+      <!-- Right: plague doctor + example -->
+      <div style="flex:1;position:relative;overflow:hidden;background:oklch(14% 0.02 264);">
+        <img src="/images/sincronia.png" alt="Doctor de la plaga medieval, grabado histórico del siglo XVII" style="width:100%;height:100%;object-fit:cover;opacity:0.4;" />
+        <div style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:2rem;" class="stagger-4">
+          <div style="background:white;border-radius:var(--radius-md);padding:1.5rem;max-width:380px;">
+            <div style="font-size:0.7rem;font-weight:700;color:var(--color-muted);letter-spacing:0.1em;margin-bottom:0.5rem;">EJEMPLO DE SINCRONÍA HISTÓRICA — EDAD MEDIA</div>
+            <p style="font-size:0.82rem;line-height:1.65;color:var(--color-foreground);">
+              Durante la <strong>Peste Negra</strong>, médicos y personas consideraron que las causas eran:
+              <strong> humores alterados</strong>, un <strong>castigo divino</strong>, <strong>miasmas</strong> de cementerios o aguas estancadas e, incluso, la <strong>influencia de los astros</strong>.
+            </p>
+            <p style="font-size:0.78rem;line-height:1.6;color:var(--color-muted);margin-top:0.75rem;">
+              No se busca determinar cuál era "correcta", sino comprender la complejidad de los factores que inciden en la vivencia de un episodio histórico.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       SLIDE 7 — DIACRONÍA-SINCRONÍA EN LA ACTUALIDAD
+  ══════════════════════════════════════════════════════ -->
+  <section class="slide" id="slide-7" data-slide="7" style="position:relative;overflow:hidden;">
+    <!-- Background image with overlay -->
+    <img src="/images/sala_espera.png" alt="Sala de espera en hospital moderno" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;" />
+    <div style="position:absolute;inset:0;background:oklch(10% 0.02 264 / 0.72);z-index:1;"></div>
+
+    <div style="position:relative;z-index:2;height:100%;display:flex;flex-direction:column;padding:2rem 3rem 6rem;justify-content:space-between;color:white;">
+      <div style="text-align:center;" class="stagger-1">
+        <div style="display:inline-block;background:var(--color-accent);color:var(--color-primary);font-weight:800;font-size:0.85rem;padding:0.35rem 1rem;border-radius:var(--radius-full);margin-bottom:1rem;letter-spacing:0.08em;">5 — ACTUALIDAD</div>
+        <h2 style="font-family:var(--font-display);font-size:clamp(1.8rem,3vw,2.8rem);font-weight:900;animation:var(--animate-float);display:inline-block;">
+          Diacronía-sincronía en la actualidad
+        </h2>
+        <p style="max-width:680px;margin:0.75rem auto 0;font-size:0.9rem;line-height:1.6;opacity:0.9;">
+          Esta mirada que va de lo diacrónico a lo sincrónico permite entender no sólo la complejidad de la historia de la medicina, sino también la dinámica compleja de la práctica médica en la actualidad.
+        </p>
+      </div>
+
+      <!-- 3 boxes -->
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;">
+        {[
+          {
+            img: '/images/capilla_hospital.png',
+            title: 'Hospital tecnológico + espacio sagrado',
+            text: 'Un hospital que, al mismo tiempo que aloja quirófanos con alta tecnología médica, da cabida a un espacio para la oración que otorga alivio a familiares de una persona enferma.',
+            delay: '0.1s',
+          },
+          {
+            img: null,
+            icon: '🧿',
+            title: 'Pulsera protectora + revisión médica',
+            text: 'Un pequeño paciente cuya madre lo protege con una pulsera de "ojo de venado" y que, puntualmente, lo lleva a su revisión médica.',
+            delay: '0.25s',
+          },
+          {
+            img: null,
+            icon: '🔄',
+            title: 'Sincronía compleja',
+            text: 'No es que la institución "retroceda" ni que la madre tenga pensamiento mágico. Se trata de la realidad compleja donde, de manera sincrónica, ocurre más de un fenómeno: prácticas institucionales, creencias personales y herencia cultural.',
+            delay: '0.4s',
+          },
+        ].map((box) => (
+          <div style={`
+            background:oklch(100% 0 0 / 0.12);
+            backdrop-filter:blur(12px);
+            border:1px solid oklch(100% 0 0 / 0.2);
+            border-radius:var(--radius-lg);
+            overflow:hidden;
+            display:flex;flex-direction:column;
+            animation:var(--animate-slide-up);
+            animation-delay:${box.delay};
+            animation-fill-mode:both;
+            transition:transform 0.25s;
+          `}
+            class="postit-card"
+          >
+            {box.img ? (
+              <img src={box.img} alt={box.title} style="width:100%;height:9rem;object-fit:cover;flex-shrink:0;" />
+            ) : (
+              <div style="width:100%;height:9rem;background:oklch(100% 0 0 / 0.1);display:flex;align-items:center;justify-content:center;font-size:4rem;flex-shrink:0;">{box.icon}</div>
+            )}
+            <div style="padding:1.25rem;flex:1;display:flex;flex-direction:column;gap:0.5rem;">
+              <h3 style="font-family:var(--font-display);font-size:0.95rem;font-weight:800;color:var(--color-accent);line-height:1.3;">{box.title}</h3>
+              <p style="font-size:0.8rem;line-height:1.6;opacity:0.9;">{box.text}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       SLIDE 8 — CONCLUSIÓN
+  ══════════════════════════════════════════════════════ -->
+  <section class="slide" id="slide-8" data-slide="8" style="display:flex;background:white;">
+    <!-- Left image -->
+    <div style="flex:0 0 45%;position:relative;overflow:hidden;background:oklch(14% 0.02 264);">
+      <img src="/images/modelos.png" alt="Médicos de la antigüedad" style="width:100%;height:100%;object-fit:cover;opacity:0.6;" />
+      <div style="position:absolute;inset:0;background:linear-gradient(135deg,var(--color-primary) 0%,transparent 60%);opacity:0.7;"></div>
+      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;">
+        <div style="text-align:center;color:white;padding:2rem;">
+          <div style="font-size:5rem;margin-bottom:1rem;animation:var(--animate-float);">🏛️</div>
+          <p style="font-size:1.1rem;font-weight:600;opacity:0.9;">Historia de la Medicina</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: conclusion -->
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:center;padding:3rem 3rem 6rem;overflow-y:auto;">
+      <div style="display:inline-block;background:var(--color-accent);color:var(--color-primary);font-weight:800;font-size:0.85rem;padding:0.35rem 1rem;border-radius:var(--radius-full);margin-bottom:1.5rem;letter-spacing:0.08em;animation:var(--animate-scale-in);" class="stagger-1">
+        CONCLUSIÓN
+      </div>
+      <h2 style="font-family:var(--font-display);font-size:clamp(2rem,3.5vw,3rem);font-weight:900;color:var(--color-primary);margin-bottom:1.5rem;line-height:1.1;animation:var(--animate-slide-up);" class="stagger-2">
+        Una comprensión<br/>más completa
+      </h2>
+      <div style="max-width:500px;" class="stagger-3">
+        <p style="font-size:0.95rem;line-height:1.8;color:var(--color-foreground);margin-bottom:1.25rem;">
+          Al abordar el cambio y las diferentes perspectivas, no estamos pensando en complicar el panorama histórico; al contrario, consideramos que con tales herramientas se revela la <strong>riqueza multifacética de la medicina</strong>, de su ejercicio y de sus protagonistas.
+        </p>
+        <p style="font-size:0.95rem;line-height:1.8;color:var(--color-foreground);">
+          Todo con el propósito de ofrecer una comprensión más completa de la manera en la que ha <strong>evolucionado a lo largo del tiempo</strong>.
+        </p>
+        <div style="margin-top:2rem;display:flex;gap:1rem;flex-wrap:wrap;">
+          <div style="background:oklch(95% 0.02 264);border-radius:var(--radius-md);padding:0.75rem 1.25rem;font-size:0.82rem;font-weight:600;color:var(--color-primary);">Perspectiva diacrónica →</div>
+          <div style="background:oklch(98% 0.02 85);border-radius:var(--radius-md);padding:0.75rem 1.25rem;font-size:0.82rem;font-weight:600;color:var(--color-primary);">Perspectiva sincrónica →</div>
+          <div style="background:var(--color-primary);border-radius:var(--radius-md);padding:0.75rem 1.25rem;font-size:0.82rem;font-weight:600;color:white;">Comprensión compleja ✓</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       SLIDE 9 — FUENTES
+  ══════════════════════════════════════════════════════ -->
+  <section class="slide bg-slide-light" id="slide-9" data-slide="9" style="display:flex;align-items:center;justify-content:center;">
+    <div style="max-width:700px;padding:3rem 2rem 6rem;" class="stagger-1">
+      <h2 style="font-family:var(--font-display);font-size:2.5rem;font-weight:900;color:var(--color-primary);margin-bottom:2rem;text-align:center;">Fuentes de información</h2>
+
+      <div style="display:flex;flex-direction:column;gap:1rem;">
+        <div style="background:white;border-radius:var(--radius-md);padding:1.25rem 1.5rem;border-left:5px solid var(--color-primary);box-shadow:var(--shadow-card);">
+          <div style="font-size:0.7rem;font-weight:700;color:var(--color-muted);letter-spacing:0.1em;margin-bottom:0.4rem;">LIBRO</div>
+          <p style="font-size:0.88rem;line-height:1.6;">Echavarría, Ruy. (2021). Revolución científica y medicina. El gran cambio de paradigma. En Martha Eugenia Rodríguez y Ruy Echavarría (Eds.). <em>La medicina en la historia</em> (pp. 163–176). Médica Panamericana.</p>
+        </div>
+        <div style="background:white;border-radius:var(--radius-md);padding:1.25rem 1.5rem;border-left:5px solid var(--color-primary);box-shadow:var(--shadow-card);">
+          <div style="font-size:0.7rem;font-weight:700;color:var(--color-muted);letter-spacing:0.1em;margin-bottom:0.4rem;">LIBRO</div>
+          <p style="font-size:0.88rem;line-height:1.6;">Laín, Pedro. (1972). <em>Historia universal de la medicina.</em> Salvat.</p>
+        </div>
+        <div style="background:white;border-radius:var(--radius-md);padding:1.25rem 1.5rem;border-left:5px solid var(--color-primary);box-shadow:var(--shadow-card);">
+          <div style="font-size:0.7rem;font-weight:700;color:var(--color-muted);letter-spacing:0.1em;margin-bottom:0.4rem;">LIBRO</div>
+          <p style="font-size:0.88rem;line-height:1.6;">Lock, Margaret y Nguyen, Vinh-Kim. (2018). <em>An anthropology of biomedicine.</em> Wiley Blackwell.</p>
+        </div>
+        <div style="background:white;border-radius:var(--radius-md);padding:1.25rem 1.5rem;border-left:5px solid var(--color-accent);box-shadow:var(--shadow-card);">
+          <div style="font-size:0.7rem;font-weight:700;color:var(--color-muted);letter-spacing:0.1em;margin-bottom:0.4rem;">DOCUMENTO ELECTRÓNICO</div>
+          <p style="font-size:0.88rem;line-height:1.6;">Fuller, Jonathan. (2025). The new medical model. En <em>The new modern medicine. Disease, evidence, and epidemiological medicine</em> (pp. 21–68). Oxford University Press. <a href="https://doi.org/10.1093/9780190066178.003.0002" target="_blank" rel="noopener" style="color:var(--color-primary);font-weight:600;">https://doi.org/10.1093/9780190066178.003.0002</a></p>
+        </div>
+      </div>
+
+      <div style="text-align:center;margin-top:2rem;">
+        <button onclick="window.goToSlide(0)" style="background:var(--color-primary);color:white;border:none;border-radius:var(--radius-full);padding:0.75rem 2rem;font-size:0.9rem;font-weight:700;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.background='var(--color-primary-dark)'" onmouseout="this.style.background='var(--color-primary)'">
+          ↩ Volver al inicio
+        </button>
+      </div>
+    </div>
+  </section>
+
+</PresentationLayout>
+
+<script>
+  // Timeline accordion
+  function toggleTimeline(i: number) {
+    const item = document.getElementById(`tl-item-${i}`);
+    const sub  = document.getElementById(`tl-sub-${i}`);
+    if (!item || !sub) return;
+    const isOpen = item.classList.contains('open');
+    // Close all
+    document.querySelectorAll('.timeline-item').forEach((el, idx) => {
+      el.classList.remove('open');
+      el.setAttribute('aria-expanded', 'false');
+      const s = document.getElementById(`tl-sub-${idx}`);
+      if (s) s.style.cssText = '';
+    });
+    if (!isOpen) {
+      item.classList.add('open');
+      item.setAttribute('aria-expanded', 'true');
+    }
+  }
+
+  // Expose globally (Astro island boundary)
+  (window as any).toggleTimeline = toggleTimeline;
+
+  // Keyboard on timeline
+  document.querySelectorAll('.timeline-item').forEach((el, i) => {
+    el.addEventListener('keydown', (e: Event) => {
+      const ke = e as KeyboardEvent;
+      if (ke.key === 'Enter' || ke.key === ' ') {
+        ke.preventDefault();
+        toggleTimeline(i);
+      }
+    });
+  });
+</script>
