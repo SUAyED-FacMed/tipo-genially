@@ -1,0 +1,152 @@
+---
+import Badge from '../ui/Badge.astro';
+import type { TimelineEntry, TimelineTableRow } from '../../types/presentation';
+
+interface Props {
+  slideIndex: number;
+  badge: string;
+  heading: string;
+  hint: string;
+  entries: TimelineEntry[];
+  tableRows: TimelineTableRow[];
+}
+const { slideIndex, badge, heading, hint, entries, tableRows } = Astro.props;
+---
+<section class="slide" id={`slide-${slideIndex}`} data-slide={slideIndex} style="background:oklch(97% 0.008 264);">
+  <div style="height:100%;display:flex;flex-direction:column;padding:2rem 3rem 6rem;overflow:hidden;">
+    <div style="text-align:center;margin-bottom:1.5rem;" class="stagger-1">
+      <Badge text={badge} />
+      <h2 style="font-family:var(--font-display);font-size:clamp(1.6rem,2.5vw,2.4rem);font-weight:900;color:var(--color-primary);" set:html={heading} />
+      <p style="font-size:0.85rem;color:var(--color-muted);margin-top:0.4rem;" set:html={hint} />
+    </div>
+
+    <!-- Timeline connector line -->
+    <div style="position:relative;flex:1;display:flex;flex-direction:column;justify-content:center;" class="stagger-2">
+      <div style="position:absolute;top:calc(3.5rem + 4px);left:8%;right:8%;height:3px;background:linear-gradient(to right,var(--color-accent),var(--color-primary));border-radius:4px;z-index:0;"></div>
+
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:1rem;position:relative;z-index:1;">
+        {entries.map((item, i) => (
+          <div
+            class="timeline-item"
+            id={`tl-item-${slideIndex}-${i}`}
+            data-slide-index={slideIndex}
+            data-item-index={i}
+            role="button"
+            tabindex="0"
+            aria-expanded="false"
+            aria-controls={`tl-row-${slideIndex}-${i}`}
+            style={`animation:var(--animate-slide-up);animation-delay:${0.1 + i * 0.12}s;animation-fill-mode:both;`}
+          >
+            <div class="timeline-circle" style="font-size:3rem;line-height:1;">
+              {item.emoji}
+            </div>
+            <div style="font-family:var(--font-display);font-size:0.8rem;font-weight:800;color:var(--color-primary);text-align:center;line-height:1.3;">{item.model}</div>
+            <div style="font-size:0.75rem;font-weight:600;color:var(--color-foreground);text-align:center;">{item.era}</div>
+            <div class="timeline-subtitle" id={`tl-sub-${slideIndex}-${i}`}>{item.dates}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Extended info table -->
+    <div style="margin-top:1.5rem;background:white;border-radius:var(--radius-md);padding:1.25rem;box-shadow:var(--shadow-card);overflow-x:auto;" class="stagger-3">
+      <table style="width:100%;border-collapse:collapse;font-size:0.75rem;">
+        <thead>
+          <tr style="background:var(--color-primary);color:white;">
+            <th style="padding:0.6rem 1rem;text-align:left;border-radius:var(--radius-sm) 0 0 var(--radius-sm);">Modelo</th>
+            <th style="padding:0.6rem 1rem;text-align:left;">Época</th>
+            <th style="padding:0.6rem 1rem;text-align:left;">Características</th>
+            <th style="padding:0.6rem 1rem;text-align:left;border-radius:0 var(--radius-sm) var(--radius-sm) 0;">Periodo</th>
+          </tr>
+        </thead>
+        <tbody>
+          {tableRows.map((row, i) => (
+            <tr
+              class="timeline-table-row"
+              id={`tl-row-${slideIndex}-${i}`}
+              data-slide-index={slideIndex}
+              data-item-index={i}
+              tabindex="0"
+              aria-current="false"
+              aria-label={`Relacionar ${row.model} con la línea del tiempo`}
+              style={`--row-bg:${i % 2 === 0 ? 'white' : 'oklch(97% 0.008 264)'};`}
+            >
+              <td style="padding:0.6rem 1rem;font-weight:700;color:var(--color-primary);">{row.model}</td>
+              <td style="padding:0.6rem 1rem;color:var(--color-muted);">{row.era}</td>
+              <td style="padding:0.6rem 1rem;" set:html={row.chars}></td>
+              <td style="padding:0.6rem 1rem;font-style:italic;color:var(--color-muted);" set:html={row.period}></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<script>
+  function toggleTimeline(slideIndex: number, i: number) {
+    const item = document.getElementById(`tl-item-${slideIndex}-${i}`);
+    const row = document.getElementById(`tl-row-${slideIndex}-${i}`);
+    if (!item || !row) return;
+    const isOpen = item.classList.contains('open');
+    
+    // Close all in this slide
+    document.querySelectorAll(`[id^="tl-item-${slideIndex}-"]`).forEach((el) => {
+      el.classList.remove('open');
+      el.setAttribute('aria-expanded', 'false');
+    });
+    document.querySelectorAll(`[id^="tl-row-${slideIndex}-"]`).forEach((el) => {
+      el.classList.remove('active');
+      el.setAttribute('aria-current', 'false');
+    });
+    
+    if (!isOpen) {
+      item.classList.add('open');
+      item.setAttribute('aria-expanded', 'true');
+      row.classList.add('active');
+      row.setAttribute('aria-current', 'true');
+    }
+  }
+
+  // Expose globally
+  (window as any).toggleTimeline = toggleTimeline;
+
+  // Keyboard navigation and clicks
+  document.addEventListener('DOMContentLoaded', () => {
+    setupTimelineEvents();
+  });
+
+  // Re-run setup in case of client-side navigation or Astro swaps
+  setupTimelineEvents();
+
+  function setupTimelineEvents() {
+    document.querySelectorAll('.timeline-item, .timeline-table-row').forEach((el) => {
+      const slideIndex = parseInt(el.getAttribute('data-slide-index') || '0', 10);
+      const itemIndex = parseInt(el.getAttribute('data-item-index') || '0', 10);
+
+      // Remove existing event listeners by cloning if needed, or check if already bound
+      if ((el as any).__bound) return;
+      (el as any).__bound = true;
+
+      el.addEventListener('click', () => {
+        toggleTimeline(slideIndex, itemIndex);
+      });
+
+      el.addEventListener('keydown', (e: Event) => {
+        const ke = e as KeyboardEvent;
+        if (ke.key === 'Enter' || ke.key === ' ') {
+          ke.preventDefault();
+          toggleTimeline(slideIndex, itemIndex);
+        }
+      });
+    });
+  }
+</script>
+
+<style>
+  .timeline-table-row.active,
+  .timeline-table-row.active td {
+    background: var(--color-accent) !important;
+    color: white !important;
+  }
+</style>

@@ -1,0 +1,343 @@
+---
+import Badge from '../ui/Badge.astro';
+import Modal from '../ui/Modal.astro';
+import type { ModelCard, EmergentModel } from '../../types/presentation';
+
+interface Props {
+  slideIndex: number;
+  badge: string;
+  heading: string;
+  subtitle: string;
+  models: ModelCard[];
+  emergent: EmergentModel;
+}
+const { slideIndex, badge, heading, subtitle, models, emergent } = Astro.props;
+const modalId = `modal-new-model-${slideIndex}`;
+const gridModels = models.slice(0, 4);
+const featuredModel = models[4];
+---
+<section class="slide bg-slide-white" id={`slide-${slideIndex}`} data-slide={slideIndex}>
+  <div class="models-slide">
+    <div class="models-slide__header stagger-1">
+      <Badge text={badge} />
+      <h2 class="models-slide__title" set:html={heading} />
+      <p class="models-slide__subtitle" set:html={subtitle} />
+    </div>
+
+    <div class="models-slide__content">
+      <div class="models-slide__grid stagger-2">
+        {gridModels.map((m, i) => (
+          <div
+            class="models-slide__card postit-card"
+            style={`background:${m.color};animation-delay:${(i + 1) * 0.1}s;`}
+          >
+            <div class="models-slide__icon">{m.icon}</div>
+            <h3 class="models-slide__card-title">{m.title}</h3>
+            <p class="models-slide__card-text">{m.desc}</p>
+          </div>
+        ))}
+      </div>
+
+      {featuredModel && (
+        <div class="models-slide__featured stagger-5" style={`--featured-color:${featuredModel.color};`}>
+          <div class="models-slide__featured-icon">{featuredModel.icon}</div>
+          <div> 
+            <strong>{featuredModel.title}</strong>
+            <p>{featuredModel.desc}</p>
+          </div>
+        </div>
+      )}
+    </div>
+
+    <!-- Special "+Info" card: new model -->
+    <div class="models-slide__emergent stagger-6">
+      <span class="models-slide__emergent-icon">{emergent.icon}</span>
+      <div class="models-slide__emergent-copy">
+        <div class="models-slide__emergent-label">{emergent.label}</div>
+        <strong>{emergent.title}</strong>
+        <p>{emergent.summary}</p>
+      </div>
+      <button
+        type="button"
+        class="models-slide__info-btn"
+        data-modal-target={modalId}
+        aria-controls={modalId}
+        aria-haspopup="dialog"
+      >+ Info</button>
+    </div>
+  </div>
+
+  <!-- Modal: new model -->
+  <Modal id={modalId} borderColor="var(--color-primary)">
+    <div style="font-size:3rem;margin-bottom:1rem;">{emergent.icon}</div>
+    <h3 style="font-family:var(--font-display);font-size:1.5rem;font-weight:800;color:var(--color-primary);margin-bottom:1rem;">{emergent.title}</h3>
+    <p style="line-height:1.7;color:var(--color-foreground);font-size:0.95rem;" set:html={emergent.detail} />
+    {emergent.reference && (
+      <div style="margin-top:1.25rem;background:oklch(95% 0.02 264);border-radius:var(--radius-md);padding:1rem;">
+        <p style="font-size:0.85rem;color:var(--color-muted);" set:html={emergent.reference} />
+      </div>
+    )}
+  </Modal>
+
+  <style>
+    .models-slide {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      padding: 2rem 3rem 6rem;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 10% 12%, oklch(90% 0.06 85 / 0.42), transparent 18rem),
+        radial-gradient(circle at 92% 18%, oklch(90% 0.05 264 / 0.46), transparent 20rem),
+        white;
+    }
+
+    .models-slide__header {
+      text-align: center;
+      margin: 0 auto 1.1rem;
+      max-width: 760px;
+    }
+
+    .models-slide__title {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3vw, 2.75rem);
+      font-weight: 900;
+      color: var(--color-primary);
+      line-height: 1;
+      margin: 0;
+      text-wrap: balance;
+    }
+
+    .models-slide__subtitle {
+      color: var(--color-muted);
+      font-size: 0.88rem;
+      line-height: 1.5;
+      margin: 0.55rem auto 0;
+      max-width: 660px;
+    }
+
+    .models-slide__content {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 18rem;
+      gap: 1.25rem;
+      width: min(100%, 920px);
+      margin: 0 auto;
+      align-items: stretch;
+    }
+
+    .models-slide__grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+      align-items: stretch;
+    }
+
+    .models-slide__card {
+      min-height: 9.5rem;
+      padding: 1.15rem;
+      display: flex;
+      flex-direction: column;
+      color: white;
+      animation: var(--animate-slide-up);
+      animation-fill-mode: both;
+    }
+
+    .models-slide__icon {
+      font-size: 2.25rem;
+      line-height: 1;
+      margin-bottom: 0.65rem;
+    }
+
+    .models-slide__card-title {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 900;
+      line-height: 1.15;
+      margin: 0 0 0.55rem;
+      text-wrap: balance;
+    }
+
+    .models-slide__card-text {
+      font-size: 0.76rem;
+      line-height: 1.45;
+      opacity: 0.92;
+      margin: 0;
+    }
+
+    .models-slide__featured {
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 1rem;
+      padding: 1.25rem;
+      border-radius: var(--radius-md);
+      background: color-mix(in oklch, var(--featured-color) 16%, white);
+      border: 2px solid color-mix(in oklch, var(--featured-color) 48%, white);
+      color: var(--color-foreground);
+      box-shadow: var(--shadow-card);
+    }
+
+    .models-slide__featured-icon {
+      width: 3.25rem;
+      height: 3.25rem;
+      display: grid;
+      place-items: center;
+      border-radius: var(--radius-full);
+      background: var(--featured-color);
+      font-size: 1.8rem;
+    }
+
+    .models-slide__featured-label,
+    .models-slide__emergent-label {
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      opacity: 0.72;
+      margin-bottom: 0.25rem;
+    }
+
+    .models-slide__featured strong,
+    .models-slide__emergent strong {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      line-height: 1.15;
+    }
+
+    .models-slide__featured p,
+    .models-slide__emergent p {
+      font-size: 0.8rem;
+      line-height: 1.5;
+      margin: 0.35rem 0 0;
+      opacity: 0.88;
+    }
+
+    .models-slide__emergent {
+      width: min(100%, 920px);
+      margin: 1rem auto 0;
+      background: var(--color-primary);
+      color: white;
+      border-radius: var(--radius-md);
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      box-shadow: var(--shadow-card);
+    }
+
+    .models-slide__emergent-icon {
+      font-size: 1.9rem;
+      flex: 0 0 auto;
+    }
+
+    .models-slide__emergent-copy {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .models-slide__info-btn {
+      flex: 0 0 auto;
+      border: 0;
+      border-radius: var(--radius-full);
+      padding: 0.45rem 1rem;
+      background: var(--color-accent);
+      color: var(--color-primary);
+      font: inherit;
+      font-size: 0.8rem;
+      font-weight: 900;
+      white-space: nowrap;
+      cursor: pointer;
+      animation: var(--animate-pulse-glow);
+    }
+
+    @media (max-width: 920px) {
+      .models-slide {
+        padding: 4rem 1rem 5.5rem;
+      }
+
+      .models-slide__content {
+        grid-template-columns: 1fr;
+        max-width: 620px;
+      }
+
+      .models-slide__featured {
+        min-height: auto;
+        flex-direction: row;
+        align-items: center;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .models-slide {
+        padding-top: 3.4rem;
+      }
+
+      .models-slide__header {
+        margin-bottom: 0.75rem;
+      }
+
+      .models-slide__title {
+        font-size: clamp(1.5rem, 8vw, 2.05rem);
+      }
+
+      .models-slide__subtitle {
+        font-size: 0.78rem;
+        line-height: 1.35;
+      }
+
+      .models-slide__grid {
+        gap: 0.75rem;
+      }
+
+      .models-slide__card {
+        min-height: 6.8rem;
+        padding: 0.95rem;
+      }
+
+      .models-slide__icon {
+        font-size: 1.75rem;
+      }
+
+      .models-slide__card-title {
+        font-size: 0.86rem;
+      }
+
+      .models-slide__card-text {
+        display: none;
+      }
+
+      .models-slide__featured {
+        gap: 0.75rem;
+        padding: 0.85rem;
+      }
+
+      .models-slide__featured-icon {
+        width: 2.55rem;
+        height: 2.55rem;
+        font-size: 1.45rem;
+      }
+
+      .models-slide__featured p {
+        display: none;
+      }
+
+      .models-slide__emergent {
+        align-items: center;
+        padding: 0.75rem;
+        gap: 0.7rem;
+      }
+
+      .models-slide__emergent-icon {
+        font-size: 1.55rem;
+      }
+
+      .models-slide__emergent p {
+        display: none;
+      }
+
+      .models-slide__info-btn {
+        padding-inline: 0.75rem;
+      }
+    }
+  </style>
+</section>

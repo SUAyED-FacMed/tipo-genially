@@ -1,0 +1,9 @@
+---
+interface Props {
+  text: string;
+}
+const { text } = Astro.props;
+---
+<div style="display:inline-block;background:var(--color-accent);color:var(--color-primary);font-weight:800;font-size:0.85rem;padding:0.35rem 1rem;border-radius:var(--radius-full);margin-bottom:1.5rem;letter-spacing:0.08em;animation:var(--animate-scale-in);" class="badge-component">
+  {text}
+</div>

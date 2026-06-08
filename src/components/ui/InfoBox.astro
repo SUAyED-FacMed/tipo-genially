@@ -1,0 +1,22 @@
+---
+interface Props {
+  variant?: 'primary' | 'accent';
+}
+const { variant = 'primary' } = Astro.props;
+
+const styles = {
+  primary: {
+    bg: 'oklch(95% 0.02 264)',
+    border: 'var(--color-primary)',
+  },
+  accent: {
+    bg: 'oklch(98% 0.02 85)',
+    border: 'var(--color-accent)',
+  },
+};
+
+const currentStyle = styles[variant];
+---
+<div style={`background:${currentStyle.bg};border-left:4px solid ${currentStyle.border};padding:1.25rem 1.5rem;border-radius:0 var(--radius-md) var(--radius-md) 0;`} class="infobox-component">
+  <slot />
+</div>

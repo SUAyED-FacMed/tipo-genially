@@ -1,0 +1,68 @@
+---
+interface Props {
+  id: string;
+  borderColor?: string;
+}
+const { id, borderColor = 'var(--color-primary)' } = Astro.props;
+---
+<div id={id} class="modal-overlay hidden" role="dialog" aria-modal="true"
+  aria-hidden="true">
+  <div class="modal-box" style={`border-top: 6px solid ${borderColor};`}>
+    <button class="modal-close" type="button" data-modal-close aria-label="Cerrar">✕</button>
+    <slot />
+  </div>
+</div>
+
+<script>
+  (() => {
+    const modalState = window as Window & { __tipoGeniallyModalsBound?: boolean };
+    if (modalState.__tipoGeniallyModalsBound) return;
+    modalState.__tipoGeniallyModalsBound = true;
+
+    const closeModal = (modal: Element | null) => {
+      if (!modal) return;
+      modal.classList.add('hidden');
+      modal.setAttribute('aria-hidden', 'true');
+      if (!document.querySelector('.modal-overlay:not(.hidden)')) {
+        document.body.classList.remove('modal-open');
+      }
+    };
+
+    const openModal = (id: string | null) => {
+      if (!id) return;
+      const modal = document.getElementById(id);
+      if (!modal) return;
+      document.querySelectorAll('.modal-overlay:not(.hidden)').forEach(closeModal);
+      document.body.append(modal);
+      document.body.classList.add('modal-open');
+      modal.classList.remove('hidden');
+      modal.setAttribute('aria-hidden', 'false');
+      (modal.querySelector('[data-modal-close]') as HTMLElement | null)?.focus();
+    };
+
+    document.addEventListener('click', (event) => {
+      if (!(event.target instanceof Element)) return;
+
+      const trigger = event.target.closest('[data-modal-target]');
+      if (trigger) {
+        openModal(trigger.getAttribute('data-modal-target'));
+        return;
+      }
+
+      const closeButton = event.target.closest('[data-modal-close]');
+      if (closeButton) {
+        closeModal(closeButton.closest('.modal-overlay'));
+        return;
+      }
+
+      if (event.target.classList?.contains('modal-overlay')) {
+        closeModal(event.target);
+      }
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key !== 'Escape') return;
+      document.querySelectorAll('.modal-overlay').forEach(closeModal);
+    });
+  })();
+</script>

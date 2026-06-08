@@ -1,0 +1,65 @@
+---
+import Badge from '../ui/Badge.astro';
+import type { ComparisonBox, HistoricalExample } from '../../types/presentation';
+
+interface Props {
+  slideIndex: number;
+  badge: string;
+  comparisons: ComparisonBox[];
+  important: string;
+  example: HistoricalExample;
+  image: string;
+  imageAlt: string;
+}
+const { slideIndex, badge, comparisons, important, example, image, imageAlt } = Astro.props;
+
+const compStyles = {
+  primary: {
+    bg: 'oklch(95% 0.02 264)',
+    border: 'var(--color-primary)',
+  },
+  accent: {
+    bg: 'oklch(98% 0.02 85)',
+    border: 'var(--color-accent)',
+  },
+};
+---
+<section class="slide bg-slide-white" id={`slide-${slideIndex}`} data-slide={slideIndex}>
+  <div style="height:100%;display:flex;gap:0;overflow:hidden;">
+    <!-- Left: text -->
+    <div style="flex:0 0 52%;padding:2.5rem 2.5rem 6rem;display:flex;flex-direction:column;justify-content:center;overflow-y:auto;">
+      <div class="stagger-1">
+        <Badge text={badge} />
+      </div>
+
+      <div style="display:flex;gap:2rem;margin-bottom:1.5rem;" class="stagger-2">
+        {comparisons.map((comp) => {
+          const style = compStyles[comp.variant];
+          return (
+            <div style={`flex:1;background:${style.bg};border-radius:var(--radius-md);padding:1.25rem;border-top:4px solid ${style.border};`}>
+              <h3 style="font-family:var(--font-display);font-size:1rem;font-weight:800;color:var(--color-primary);margin-bottom:0.5rem;">{comp.icon} {comp.title}</h3>
+              <p style="font-size:0.82rem;line-height:1.6;color:var(--color-foreground);" set:html={comp.text} />
+            </div>
+          );
+        })}
+      </div>
+
+      <div style="background:var(--color-primary);color:white;border-radius:var(--radius-md);padding:1.25rem 1.5rem;" class="stagger-3">
+        <h4 style="font-family:var(--font-display);font-size:1rem;font-weight:800;margin-bottom:0.5rem;">⚠ Importante</h4>
+        <p style="font-size:0.85rem;line-height:1.6;opacity:0.9;" set:html={important} />
+      </div>
+    </div>
+
+    <!-- Right: image + example -->
+    <div style="flex:1;position:relative;overflow:hidden;background:oklch(14% 0.02 264);">
+      <img src={image} alt={imageAlt} style="width:100%;height:100%;object-fit:cover;opacity:0.4;" />
+      <div style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:2rem;" class="stagger-4">
+        <div style="background:white;border-radius:var(--radius-md);padding:1.5rem;max-width:380px;">
+          <div style="font-size:0.7rem;font-weight:700;color:var(--color-muted);letter-spacing:0.1em;margin-bottom:0.5rem;">{example.label}</div>
+          <p style="font-size:0.82rem;line-height:1.65;color:var(--color-foreground);" set:html={example.text} />
+          <p style="font-size:0.78rem;line-height:1.6;color:var(--color-muted);margin-top:0.75rem;" set:html={example.footnote} />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

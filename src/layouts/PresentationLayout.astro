@@ -28,6 +28,26 @@ const { title, description = '', totalSlides } = Astro.props;
       <slot />
     </div>
 
+    <button
+      class="index-home-btn"
+      id="btn-index"
+      type="button"
+      aria-label="Volver al índice"
+      title="Volver al índice"
+      style="position:fixed;top:1.5rem;right:1.5rem;z-index:120;width:auto;min-width:7rem;height:2.75rem;padding:0 1rem;border:1px solid oklch(91% 0.01 264);border-radius:var(--radius-full);background:oklch(100% 0 0 / 0.92);color:var(--color-primary);box-shadow:var(--shadow-card);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:0.45rem;backdrop-filter:blur(12px);transition:color 0.2s,background 0.2s,border-color 0.2s,transform 0.15s,box-shadow 0.2s;"
+    >
+      <svg
+        viewBox="0 0 24 24"
+        aria-hidden="true"
+        focusable="false"
+        style="width:1.25rem;height:1.25rem;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;fill:none;"
+      >
+        <path d="M3 10.7 12 3l9 7.7"></path>
+        <path d="M5.5 9.7V21h5.2v-6.1h4.6V21h5.2V9.7"></path>
+      </svg>
+      <span style="font-size:0.82rem;font-weight:800;letter-spacing:0;">Índice</span>
+    </button>
+
     <!-- Navigation bar -->
     <nav class="nav-bar" role="navigation" aria-label="Navegación de presentación">
       <button class="nav-btn" id="btn-prev" aria-label="Diapositiva anterior" disabled>
@@ -60,6 +80,7 @@ const { title, description = '', totalSlides } = Astro.props;
       const track = document.getElementById('slides-track');
       const btnPrev = document.getElementById('btn-prev');
       const btnNext = document.getElementById('btn-next');
+      const btnIndex = document.getElementById('btn-index');
       const counter = document.getElementById('nav-counter');
       const dots = document.querySelectorAll('.nav-dot');
 
@@ -69,6 +90,8 @@ const { title, description = '', totalSlides } = Astro.props;
         track.style.transform = `translateX(-${current * 100}vw)`;
         btnPrev.disabled = current === 0;
         btnNext.disabled = current === totalSlides - 1;
+        btnIndex.style.display = current === 1 ? 'none' : 'flex';
+        btnIndex.setAttribute('aria-hidden', current === 1 ? 'true' : 'false');
         counter.textContent = `${current + 1} / ${totalSlides}`;
         dots.forEach((d, i) => {
           d.classList.toggle('active', i === current);
@@ -81,6 +104,7 @@ const { title, description = '', totalSlides } = Astro.props;
 
       btnPrev.addEventListener('click', () => goTo(current - 1));
       btnNext.addEventListener('click', () => goTo(current + 1));
+      btnIndex.addEventListener('click', () => goTo(1));
       dots.forEach((d) => d.addEventListener('click', () => goTo(+d.dataset.index)));
 
       // Keyboard navigation

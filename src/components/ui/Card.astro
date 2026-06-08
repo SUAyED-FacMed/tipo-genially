@@ -1,0 +1,91 @@
+---
+interface Props {
+  num: string;
+  title: string;
+  color: string;
+  modalId: string;
+}
+const { num, title, color, modalId } = Astro.props;
+---
+<button
+  type="button"
+  class="postit-card element-card"
+  style={`background: ${color}; color: white;`}
+  data-modal-target={modalId}
+  aria-controls={modalId}
+  aria-haspopup="dialog"
+  aria-label={`Ver información de ${title}`}
+>
+  <!-- Clip decoration -->
+  <div class="element-card__clip"></div>
+
+  <div class="element-card__num">{num}</div>
+  <h3 class="element-card__title">{title}</h3>
+
+  <span
+    class="postit-btn element-card__plus"
+    aria-hidden="true"
+  >+</span>
+</button>
+
+<style>
+  .element-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 11.25rem;
+    width: 100%;
+    overflow: visible;
+  }
+
+  .element-card__clip {
+    position: absolute;
+    top: -0.6rem;
+    left: 50%;
+    width: 1.3rem;
+    height: 1.3rem;
+    transform: translateX(-50%);
+    border-radius: 0.3rem 0.3rem 0 0;
+    background: oklch(93% 0 0 / 0.52);
+    box-shadow: 0 5px 12px oklch(10% 0.01 264 / 0.1);
+  }
+
+  .element-card__num {
+    font-family: var(--font-display);
+    font-size: clamp(2.1rem, 3.2vw, 2.75rem);
+    font-weight: 900;
+    line-height: 1;
+    color: oklch(100% 0 0 / 0.58);
+  }
+
+  .element-card__title {
+    width: 100%;
+    padding-right: 2.65rem;
+    font-family: var(--font-display);
+    font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+    font-weight: 900;
+    line-height: 1.1;
+    color: white;
+    text-wrap: balance;
+    word-break: normal;
+    overflow-wrap: normal;
+    hyphens: none;
+  }
+
+  .element-card__plus {
+    pointer-events: none;
+  }
+
+  @media (max-width: 560px) {
+    .element-card {
+      min-height: 8.75rem;
+      padding: 1rem;
+    }
+
+    .element-card__title {
+      padding-right: 2.35rem;
+      font-size: clamp(0.82rem, 3.7vw, 0.95rem);
+      letter-spacing: 0;
+    }
+  }
+</style>

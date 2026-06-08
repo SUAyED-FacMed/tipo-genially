@@ -121,6 +121,11 @@
   transition: transform 0.6s cubic-bezier(0.77, 0, 0.175, 1);
 }
 
+body.modal-open .slides-track {
+  position: relative;
+  z-index: 150;
+}
+
 .slide {
   flex: 0 0 100vw;
   width: 100vw;
@@ -213,7 +218,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  animation: var(--animate-fade-in);
+  animation: modal-backdrop-in 0.2s ease-out;
 }
 
 .modal-overlay.hidden {
@@ -227,8 +232,26 @@
   max-width: 480px;
   width: 90%;
   position: relative;
+  z-index: 1;
+  opacity: 1;
   box-shadow: var(--shadow-modal);
-  animation: var(--animate-scale-in);
+  animation: modal-box-in 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modal-box-in {
+  from { transform: scale(0.92); }
+  to   { transform: scale(1); }
+}
+
+@keyframes modal-backdrop-in {
+  from {
+    background: oklch(10% 0.02 264 / 0);
+    backdrop-filter: blur(0);
+  }
+  to {
+    background: oklch(10% 0.02 264 / 0.7);
+    backdrop-filter: blur(4px);
+  }
 }
 
 .modal-close {
@@ -256,10 +279,13 @@
 
 /* ─── Post-it Card ─────────────────────────────────────── */
 .postit-card {
+  border: 0;
   border-radius: var(--radius-md);
   padding: 1.5rem;
   position: relative;
   cursor: pointer;
+  font: inherit;
+  text-align: left;
   transition: transform 0.25s, box-shadow 0.25s;
   box-shadow: var(--shadow-card);
 }
@@ -294,6 +320,55 @@
   transform: scale(1.15);
 }
 
+/* ─── Index Shortcut ───────────────────────────────────── */
+.index-home-btn {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  z-index: 5;
+  min-width: 7rem;
+  height: 2.75rem;
+  padding: 0 1rem;
+  border: 1px solid oklch(91% 0.01 264);
+  border-radius: var(--radius-full);
+  background: oklch(100% 0 0 / 0.92);
+  color: var(--color-primary);
+  box-shadow: var(--shadow-card);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  backdrop-filter: blur(12px);
+  transition: color 0.2s, background 0.2s, border-color 0.2s, transform 0.15s, box-shadow 0.2s;
+}
+
+.index-home-btn span {
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+.index-home-btn svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+.index-home-btn:hover,
+.index-home-btn:focus-visible {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: white;
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-1px);
+  outline: none;
+}
+
 /* ─── Timeline ─────────────────────────────────────────── */
 .timeline-item {
   display: flex;
@@ -321,6 +396,17 @@
   transform: scale(1.05);
 }
 
+.timeline-item:focus-visible {
+  outline: none;
+}
+
+.timeline-item:focus-visible .timeline-circle {
+  border-color: var(--color-primary);
+  background: oklch(98% 0.04 85);
+  box-shadow: 0 0 0 8px oklch(52% 0.25 264 / 0.18), 0 0.75rem 1.5rem oklch(52% 0.25 264 / 0.18);
+  transform: scale(1.06);
+}
+
 .timeline-subtitle {
   max-height: 0;
   overflow: hidden;
@@ -334,6 +420,67 @@
 .timeline-item.open .timeline-subtitle {
   max-height: 3rem;
   opacity: 1;
+}
+
+.timeline-table-row {
+  background: var(--row-bg);
+  cursor: pointer;
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.timeline-table-row td {
+  background: var(--row-bg);
+  border-top: 2px solid transparent;
+  border-bottom: 2px solid transparent;
+  transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+}
+
+.timeline-table-row:hover td {
+  background: oklch(94% 0.035 264);
+}
+
+.timeline-table-row:focus-visible {
+  outline: 3px solid oklch(52% 0.25 264 / 0.32);
+  outline-offset: -3px;
+}
+
+.timeline-table-row.active {
+  background: oklch(91% 0.065 264);
+  box-shadow: inset 0.45rem 0 0 var(--color-primary);
+}
+
+.timeline-table-row.active td {
+  background: oklch(91% 0.065 264);
+  border-color: oklch(74% 0.13 264);
+  color: var(--color-primary-dark);
+}
+
+.timeline-table-row.active td:first-child {
+  box-shadow: inset 0.45rem 0 0 var(--color-primary);
+  color: var(--color-primary-dark) !important;
+}
+
+.timeline-table-row.active td:last-child {
+  box-shadow: inset -2px 0 0 oklch(74% 0.13 264);
+}
+
+@media (max-width: 720px) {
+  .index-home-btn {
+    top: 0.85rem;
+    right: 0.85rem;
+    min-width: auto;
+    height: 2.4rem;
+    padding: 0 0.75rem;
+  }
+
+  .index-home-btn svg {
+    width: 1.1rem;
+    height: 1.1rem;
+  }
+
+  .index-home-btn span {
+    font-size: 0.76rem;
+  }
 }
 
 /* ─── Decorative shapes (Genially style) ──────────────── */
