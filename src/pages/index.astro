@@ -9,6 +9,7 @@ import TextImageSlide from '../components/slides/TextImageSlide.astro';
 import CardsModalSlide from '../components/slides/CardsModalSlide.astro';
 import ModelsSlide from '../components/slides/ModelsSlide.astro';
 import TimelineSlide from '../components/slides/TimelineSlide.astro';
+import TimelineContinuationSlide from '../components/slides/TimelineContinuationSlide.astro';
 import SyncSlide from '../components/slides/SyncSlide.astro';
 import ActualitySlide from '../components/slides/ActualitySlide.astro';
 import ConclusionSlide from '../components/slides/ConclusionSlide.astro';
@@ -34,15 +35,18 @@ import SourcesSlide from '../components/slides/SourcesSlide.astro';
   <!-- SLIDE 5 — LÍNEA DE TIEMPO DIACRÓNICA -->
   <TimelineSlide slideIndex={5} {...u2.timeline} />
 
-  <!-- SLIDE 6 — PERSPECTIVA SINCRÓNICA (texto + ejemplo) -->
-  <SyncSlide slideIndex={6} {...u2.sync} />
+  <!-- SLIDE 6 — CONTINUIDAD DE LA LÍNEA DE TIEMPO -->
+  <TimelineContinuationSlide slideIndex={6} {...u2.timelineContinuation} />
 
-  <!-- SLIDE 7 — DIACRONÍA-SINCRONÍA EN LA ACTUALIDAD -->
-  <ActualitySlide slideIndex={7} {...u2.actuality} />
+  <!-- SLIDE 7 — PERSPECTIVA SINCRÓNICA (texto + ejemplo) -->
+  <SyncSlide slideIndex={7} {...u2.sync} />
 
-  <!-- SLIDE 8 — CONCLUSIÓN -->
-  <ConclusionSlide slideIndex={8} {...u2.conclusion} />
+  <!-- SLIDE 8 — DIACRONÍA-SINCRONÍA EN LA ACTUALIDAD -->
+  <ActualitySlide slideIndex={8} {...u2.actuality} />
 
-  <!-- SLIDE 9 — FUENTES -->
-  <SourcesSlide slideIndex={9} {...u2.sources} />
+  <!-- SLIDE 9 — CONCLUSIÓN -->
+  <ConclusionSlide slideIndex={9} {...u2.conclusion} />
+
+  <!-- SLIDE 10 — FUENTES -->
+  <SourcesSlide slideIndex={10} {...u2.sources} />
 </PresentationLayout>

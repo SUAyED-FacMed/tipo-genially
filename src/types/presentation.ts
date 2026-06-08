@@ -52,6 +52,14 @@ export interface TimelineTableRow {
   period: string;
 }
 
+/** A continuation slide for the diachronic timeline explanation */
+export interface TimelineContinuationData {
+  badge: string;
+  heading: string;
+  intro: string;
+  animatedText: string;
+}
+
 /** A comparison box (diacrónica vs sincrónica) */
 export interface ComparisonBox {
   icon: string;
@@ -132,6 +140,7 @@ export interface TimelineData {
   badge: string;
   heading: string;
   hint: string;
+  text: string;
   entries: TimelineEntry[];
   tableRows: TimelineTableRow[];
 }
@@ -177,6 +186,7 @@ export interface PresentationData {
   elements: ElementsData;
   models: ModelsData;
   timeline: TimelineData;
+  timelineContinuation: TimelineContinuationData;
   sync: SyncData;
   actuality: ActualityData;
   conclusion: ConclusionData;

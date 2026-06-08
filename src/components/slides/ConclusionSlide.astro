@@ -43,14 +43,7 @@ const tagStyles = {
         <p style={`font-size:0.95rem;line-height:1.8;color:var(--color-foreground);${i < paragraphs.length - 1 ? 'margin-bottom:1.25rem;' : ''}`} set:html={p} />
       ))}
 
-      <div style="margin-top:2rem;display:flex;gap:1rem;flex-wrap:wrap;">
-        {tags.map((tag) => {
-          const style = tagStyles[tag.variant];
-          return (
-            <div style={`${style} border-radius:var(--radius-md);padding:0.75rem 1.25rem;font-size:0.82rem;font-weight:600;`} set:html={tag.text} />
-          );
-        })}
-      </div>
+
     </div>
   </div>
 </section>

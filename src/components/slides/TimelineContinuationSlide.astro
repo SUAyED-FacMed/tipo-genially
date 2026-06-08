@@ -1,0 +1,205 @@
+---
+import Badge from '../ui/Badge.astro';
+import type { TimelineContinuationData } from '../../types/presentation';
+
+interface Props extends TimelineContinuationData {
+  slideIndex: number;
+}
+
+const { slideIndex, badge, heading, intro, animatedText } = Astro.props;
+---
+
+<section class="slide timeline-continuation-slide" id={`slide-${slideIndex}`} data-slide={slideIndex}>
+  <div class="timeline-continuation-shell">
+    <div class="timeline-continuation-copy">
+      <div class="stagger-1">
+        <Badge text={badge} />
+      </div>
+      <h2 class="timeline-continuation-title stagger-2" set:html={heading} />
+
+
+
+      <p class="timeline-intro stagger-3" set:html={intro} />
+    </div>
+
+    <div class="timeline-continuation-panel">
+      <p class="timeline-animated-text" set:html={animatedText} />
+    </div>
+  </div>
+</section>
+
+<style>
+  .timeline-continuation-slide {
+    background:
+      radial-gradient(circle at 12% 18%, oklch(90% 0.14 85 / 0.45), transparent 28%),
+      linear-gradient(135deg, oklch(98% 0.006 264), oklch(94% 0.018 264));
+  }
+
+  .timeline-continuation-shell {
+    height: 100%;
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(25rem, 1.1fr);
+    gap: clamp(1.5rem, 3vw, 3rem);
+    align-items: center;
+    padding: clamp(2rem, 3vw, 3.25rem) clamp(2rem, 4vw, 4rem) 6rem;
+    overflow: hidden;
+  }
+
+  .timeline-continuation-copy {
+    max-width: 34rem;
+  }
+
+  .timeline-kicker {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2rem;
+    padding: 0.35rem 0.8rem;
+    background: oklch(91.038% 0.19112 107.406);
+    color: var(--color-primary-dark);
+    font-size: 0.8rem;
+    font-weight: 900;
+    letter-spacing: 0;
+    border-radius: var(--radius-sm);
+    margin-bottom: 1rem;
+  }
+
+  .timeline-continuation-title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3.4rem);
+    font-weight: 900;
+    color: var(--color-primary);
+    line-height: 1.02;
+    max-width: 11ch;
+    margin-bottom: 1.35rem;
+  }
+
+  .timeline-continuity-map {
+    display: grid;
+    grid-template-columns: auto minmax(8rem, 1fr) auto;
+    align-items: center;
+    gap: 0.9rem;
+    color: var(--color-muted);
+    font-size: 0.78rem;
+    font-weight: 800;
+    margin-bottom: 1.3rem;
+  }
+
+  .timeline-continuity-line {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    align-items: center;
+    position: relative;
+    min-height: 1.6rem;
+  }
+
+  .timeline-continuity-line::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 3px;
+    transform: translateY(-50%);
+    background: linear-gradient(90deg, var(--color-accent), var(--color-primary));
+    border-radius: var(--radius-full);
+  }
+
+  .timeline-continuity-line::after {
+    content: "";
+    position: absolute;
+    right: -0.1rem;
+    top: 50%;
+    width: 0.7rem;
+    height: 0.7rem;
+    border-top: 3px solid var(--color-primary);
+    border-right: 3px solid var(--color-primary);
+    transform: translateY(-50%) rotate(45deg);
+  }
+
+  .timeline-continuity-line i {
+    position: relative;
+    z-index: 1;
+    width: 1rem;
+    height: 1rem;
+    border: 3px solid var(--color-accent);
+    border-radius: var(--radius-full);
+    background: white;
+  }
+
+  .timeline-intro {
+    font-size: clamp(1rem, 1.35vw, 1.2rem);
+    line-height: 1.68;
+    color: var(--color-foreground);
+  }
+
+  .timeline-intro :global(strong),
+  .timeline-animated-text :global(strong) {
+    color: var(--color-primary);
+    font-weight: 900;
+  }
+
+  .timeline-continuation-panel {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    min-width: 0;
+  }
+
+  .timeline-animated-text {
+    background: oklch(94.134% 0.10851 100.273);
+    color: var(--color-foreground);
+    border-radius: var(--radius-md);
+    padding: clamp(1.25rem, 2.4vw, 2rem);
+    font-size: clamp(1rem, 1.42vw, 1.28rem);
+    line-height: 1.58;
+    font-weight: 350;
+    box-shadow: var(--shadow-card);
+    transform: translateX(5rem);
+    opacity: 0;
+  }
+
+  .timeline-continuation-slide[data-active="true"] .timeline-animated-text {
+    animation: timeline-slide-left 0.72s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+  }
+
+  @keyframes timeline-slide-left {
+    from {
+      opacity: 0;
+      transform: translateX(5rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @media (max-width: 900px) {
+    .timeline-continuation-shell {
+      grid-template-columns: 1fr;
+      gap: 1.3rem;
+      padding: 1.5rem 1.4rem 5.5rem;
+      overflow-y: auto;
+    }
+
+    .timeline-continuation-copy {
+      max-width: none;
+    }
+
+    .timeline-continuation-title {
+      max-width: none;
+      font-size: clamp(1.8rem, 8vw, 2.5rem);
+      margin-bottom: 1rem;
+    }
+
+    .timeline-continuation-panel {
+      align-self: auto;
+    }
+
+    .timeline-animated-text {
+      font-size: 0.98rem;
+      line-height: 1.5;
+    }
+  }
+</style>

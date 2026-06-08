@@ -3,7 +3,7 @@ import type { PresentationData } from '../types/presentation';
 export const u2: PresentationData = {
   title: '¿Qué es un modelo médico? — Unidad 2',
   description: 'Presentación interactiva sobre modelos médicos en la historia. Recursos educativos de historia de la medicina.',
-  totalSlides: 10,
+  totalSlides: 11,
   cover: {
     title: '¿Qué es un<br/>modelo<br/>médico?',
     author: 'Alba Dolores Morales Cosme',
@@ -15,7 +15,7 @@ export const u2: PresentationData = {
     { num: 2, label: 'Elementos que reconstruyen un modelo médico', slideIndex: 3 },
     { num: 3, label: 'Modelos médicos más estudiados', slideIndex: 4 },
     { num: 4, label: 'Perspectiva diacrónica/sincrónica', slideIndex: 5 },
-    { num: 5, label: 'Diacronía y sincronía en la actualidad', slideIndex: 7 },
+    { num: 5, label: 'Diacronía y sincronía en la actualidad', slideIndex: 8 },
   ],
   definition: {
     badge: '1 — DEFINICIÓN',
@@ -89,8 +89,9 @@ export const u2: PresentationData = {
     },
   },
   timeline: {
-    badge: '4 — PERSPECTIVA DIACRÓNICA',
+    badge: '4 - Perspectiva diacrónica/sincrónica',
     heading: 'Línea del tiempo de los modelos médicos',
+    text: 'Cuando se estudian los modelos médicos más representativos, se suelen asociar con una etapa histórica. Observa las siguientes líneas del tiempo:',
     hint: 'Haz clic en cada época para ver más información',
     entries: [
       { model: 'Medicinas Antiguas', era: 'Culturas Antiguas', dates: 'Prehistoria — culturas antiguas', emoji: '🏺' },
@@ -107,11 +108,17 @@ export const u2: PresentationData = {
       { model: 'Biomédico', era: 'Contemporánea', chars: 'Teoría bacteriológica. Medicina de laboratorio. Medicina de patente.', period: 'Siglo XX — hoy' },
     ],
   },
+  timelineContinuation: {
+    badge: '4.1 - Perspectiva diacrónica/sincrónica',
+    heading: '',
+    intro: 'Es importante subrayar que, aunque un modelo caracterice una época, nunca es el único ni elimina al anterior, ni desaparece completamente en la siguiente etapa. Regresando a la línea del tiempo, se podría resaltar la idea de <strong>continuidad</strong>; es decir, de una práctica médica que tiene un desarrollo progresivo y lineal que lo lleva de un punto de origen a otro más reciente.',
+    animatedText: 'Este enfoque es muy útil porque, por ejemplo, permite estudiar cómo ha cambiado el conocimiento anatómico a lo largo del tiempo, cómo se han transformado los hospitales, etc. Esta perspectiva se llama <strong>diacrónica</strong>; es decir, a lo largo del tiempo; sin embargo, se debe completar con otra perspectiva llamada <strong>sincrónica</strong>, a través de la cual se examina, de manera más detenida, un momento histórico, para tener una representación más detallada de la manera en la que interactúan diversos factores, ya sean científicos, sociales, culturales, artísticos, entre otros; es decir, al tener una perspectiva sincrónica, es posible reconocer que más de un aspecto o, en este caso, más de un modelo médico, están ocurriendo al mismo tiempo.',
+  },
   sync: {
-    badge: '4 — PERSPECTIVA SINCRÓNICA',
+    badge: '4.2 — Ejemplo de sincronía histórica',
     comparisons: [
-      { icon: '→', title: 'Diacrónica', text: 'A lo largo del tiempo. Permite estudiar cómo ha cambiado el conocimiento anatómico, los hospitales, etc. Perspectiva de continuidad y desarrollo lineal.', variant: 'primary' },
-      { icon: '⊙', title: 'Sincrónica', text: 'Un momento histórico en detalle. Reconoce que más de un modelo médico puede estar ocurriendo <em>al mismo tiempo</em>, con múltiples factores: científicos, sociales, culturales y artísticos.', variant: 'accent' },
+      { icon: '→', title: 'Ejemplo', text: 'La perspectiva sincrónica se puede ejemplificar citando las explicaciones que se le daban a la enfermedad durante la Edad Media; por ejemplo, la peste. En las crónicas, se refiere que los médicos y las personas consideraron que la causa eran humores alterados, pero también se habló de un castigo divino, de miasmas o emanaciones pútridas de cementerios o aguas estancadas e, incluso, se atribuyó a la influencia de los astros.', variant: 'primary' },
+      { icon: '⊙', title: 'Sincrónica', text: 'Cuando cada uno de esos factores confluyen para explicar un fenómeno, no se trata de determinar cuál era la postura correcta; lo que se intenta es comprender la complejidad de los factores que inciden en la vivencia de un episodio histórico y en el proceder de los involucrados, sean expertos o no.', variant: 'accent' },
     ],
     important: 'Aunque un modelo caracterice una época, <strong>nunca es el único, ni elimina al anterior, ni desaparece completamente</strong> en la siguiente etapa.',
     example: {
@@ -125,26 +132,26 @@ export const u2: PresentationData = {
   actuality: {
     badge: '5 — ACTUALIDAD',
     heading: 'Diacronía-sincronía en la actualidad',
-    intro: 'Esta mirada que va de lo diacrónico a lo sincrónico permite entender no sólo la complejidad de la historia de la medicina, sino también la dinámica compleja de la práctica médica en la actualidad.',
-    bgImage: '/images/sala_espera.png',
+    intro: 'Esta mirada que va de lo diacrónico a lo sincrónico permite entender no sólo la complejidad de la historia de la medicina. También ayuda a explicar la dinámica compleja de la práctica médica en la actualidad.',
+    bgImage: '/images/sala_espera.jpg',
     boxes: [
       {
-        image: '/images/capilla_hospital.png',
+        image: '/images/capilla_hospital.jpg',
         title: 'Hospital tecnológico + espacio sagrado',
-        text: 'Un hospital que, al mismo tiempo que aloja quirófanos con alta tecnología médica, da cabida a un espacio para la oración que otorga alivio a familiares de una persona enferma.',
-        delay: '0.1s',
+        text: 'Para ilustrar el punto, pensemos en un hospital que, al mismo tiempo que aloja quirófanos con alta tecnología médica, atendido por personal especializado, da cabida a un espacio para la oración que otorga alivio a familiares de una persona enferma.',
+        delay: '1s',
       },
       {
-        icon: '🧿',
+        image: '/images/pulsera.jpg',
         title: 'Pulsera protectora + revisión médica',
-        text: 'Un pequeño paciente cuya madre lo protege con una pulsera de "ojo de venado" y que, puntualmente, lo lleva a su revisión médica.',
-        delay: '0.25s',
+        text: 'O bien, piensa en un pequeño paciente cuya madre protege con una pulsera con “ojo de venado” y que, puntualmente, lo lleva a su revisión médica.',
+        delay: '1.5s',
       },
       {
-        icon: '🔄',
+        image: '/images/complejo.jpg',
         title: 'Sincronía compleja',
-        text: 'No es que la institución "retroceda" ni que la madre tenga pensamiento mágico. Se trata de la realidad compleja donde, de manera sincrónica, ocurre más de un fenómeno: prácticas institucionales, creencias personales y herencia cultural.',
-        delay: '0.4s',
+        text: 'No se puede decir, en el caso del primer ejemplo, que una institución retroceda a la época de la medicina medieval o que, en el segundo caso, la madre tenga pensamiento mágico mezclado con el científico. Se trata más bien de la realidad compleja en la que, de manera sincrónica, ocurre más de un fenómeno al conjuntarse prácticas institucionales, creencias personales y la herencia cultural.',
+        delay: '2s',
       },
     ],
   },
@@ -152,15 +159,14 @@ export const u2: PresentationData = {
     badge: 'CONCLUSIÓN',
     heading: 'Una comprensión<br/>más completa',
     paragraphs: [
-      'Al abordar el cambio y las diferentes perspectivas, no estamos pensando en complicar el panorama histórico; al contrario, consideramos que con tales herramientas se revela la <strong>riqueza multifacética de la medicina</strong>, de su ejercicio y de sus protagonistas.',
-      'Todo con el propósito de ofrecer una comprensión más completa de la manera en la que ha <strong>evolucionado a lo largo del tiempo</strong>.',
+      'Al abordar el cambio y las diferentes perspectivas, no estamos pensando en complicar el panorama histórico; al contrario, consideramos que con tales herramientas se revela la riqueza multifacética de la medicina, de su ejercicio, de sus protagonistas, todo con el propósito de ofrecer una comprensión más completa de la manera en la que ha evolucionado a lo largo del tiempo.',
     ],
     tags: [
       { text: 'Perspectiva diacrónica →', variant: 'primary-bg' },
       { text: 'Perspectiva sincrónica →', variant: 'accent-bg' },
       { text: 'Comprensión compleja ✓', variant: 'primary-solid' },
     ],
-    image: '/images/modelos.png',
+    image: '/images/conclusiones.jpg',
   },
   sources: {
     heading: 'Fuentes de información',
