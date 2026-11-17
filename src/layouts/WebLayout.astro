@@ -12,6 +12,9 @@ interface Props {
   sections: { id: string; label: string }[];
 }
 const { title, description = '', slides, sections } = Astro.props;
+
+// Pantallas agrupadas por sección para la línea de tiempo (la portada es el grupo -1)
+const groups = Map.groupBy(slides.map((s, i) => ({ ...s, i })), (s) => s.section);
 ---
 <!DOCTYPE html>
 <html lang="es">
@@ -39,15 +42,20 @@ const { title, description = '', slides, sections } = Astro.props;
       Índice
     </button>
     <button class="bar__arrow" id="prev" type="button" aria-label="Pantalla anterior">←</button>
-    <ol class="bar__segments">
-      {slides.map((s, i) => (
-        <li class:list={{ 'is-first': i === 0 || slides[i - 1].section !== s.section }}>
-          <a href={`#${s.id}`} data-seg={i} title={s.label} aria-label={s.label}></a>
+    <ol class="bar__groups">
+      {[...groups].map(([section, items]) => (
+        <li class="bar__group" data-group={section} style={`flex-grow:${items.length}`}>
+          {section >= 0 && <span class="bar__gnum" aria-hidden="true">{section + 1}</span>}
+          <ol class="bar__segs">
+            {items.map((s) => (
+              <li><a href={`#${s.id}`} data-seg={s.i} title={s.label} aria-label={s.label}></a></li>
+            ))}
+          </ol>
         </li>
       ))}
     </ol>
     <button class="bar__arrow" id="next" type="button" aria-label="Pantalla siguiente">→</button>
-    <p class="bar__where" id="where" aria-live="polite"></p>
+    <p class="bar__where" aria-live="polite"><span class="bar__pos" id="pos"></span><span class="bar__label" id="where"></span></p>
   </nav>
 
   <div class="drawer" id="toc" hidden>
@@ -56,13 +64,32 @@ const { title, description = '', slides, sections } = Astro.props;
       <ol>
         <li><a href={`#${slides[0].id}`} data-toc="-1"><span class="drawer__num">·</span>Portada</a></li>
         {sections.map((s, i) => (
-          <li><a href={`#${s.id}`} data-toc={i}><span class="drawer__num">{String(i + 1).padStart(2, '0')}</span>{s.label}</a></li>
+          <li><a href={`#${s.id}`} data-toc={i}><span class="drawer__num">{i + 1}</span>{s.label}</a></li>
         ))}
       </ol>
     </div>
   </div>
 
+  <!-- Aviso para celulares en vertical (solo CSS lo muestra; se puede descartar) -->
+  <div class="rotate" role="dialog" aria-modal="true" aria-labelledby="rotate-t">
+    <svg class="rotate__icon" viewBox="0 0 64 64" aria-hidden="true">
+      <rect x="20" y="6" width="24" height="44" rx="4" />
+      <circle cx="32" cy="44" r="1.6" />
+    </svg>
+    <p class="rotate__title" id="rotate-t">Gira tu dispositivo</p>
+    <p class="rotate__text">Esta presentación se ve mejor en horizontal.</p>
+    <button class="rotate__skip" id="rotate-skip" type="button">Seguir en vertical</button>
+  </div>
+
   <script>
+    // Aviso de girar: si se descarta, no vuelve durante esta visita
+    const dismissRotate = () => document.documentElement.classList.add('rotate-dismissed');
+    try { if (sessionStorage.getItem('rotate-dismissed')) dismissRotate(); } catch {}
+    document.getElementById('rotate-skip')!.addEventListener('click', () => {
+      dismissRotate();
+      try { sessionStorage.setItem('rotate-dismissed', '1'); } catch {}
+    });
+
     const W = 1600, H = 900;
     const viewport = document.getElementById('viewport')!;
     const stage = document.getElementById('stage')!;
@@ -71,6 +98,8 @@ const { title, description = '', slides, sections } = Astro.props;
     const segs = [...document.querySelectorAll<HTMLAnchorElement>('[data-seg]')];
     const tocLinks = [...document.querySelectorAll<HTMLAnchorElement>('[data-toc]')];
     const where = document.getElementById('where')!;
+    const pos = document.getElementById('pos')!;
+    const groups = [...document.querySelectorAll<HTMLElement>('[data-group]')];
     const prev = document.getElementById('prev') as HTMLButtonElement;
     const next = document.getElementById('next') as HTMLButtonElement;
     const menuBtn = document.getElementById('menu-btn')!;
@@ -104,7 +133,13 @@ const { title, description = '', slides, sections } = Astro.props;
       });
       const sec = Number(slides[i].dataset.section);
       tocLinks.forEach((a) => a.toggleAttribute('aria-current', Number(a.dataset.toc) === sec));
-      where.textContent = slides[i].dataset.where ?? '';
+      groups.forEach((g) => {
+        const n = Number(g.dataset.group);
+        g.classList.toggle('is-current', n === sec);
+        g.classList.toggle('is-done', n < sec);
+      });
+      pos.textContent = slides[i].dataset.pos ?? '';
+      where.textContent = slides[i].dataset.label ?? '';
       prev.disabled = i === 0;
       next.disabled = i === slides.length - 1;
       if (updateUrl && location.hash !== `#${slides[i].id}`) history.replaceState(null, '', `#${slides[i].id}`);

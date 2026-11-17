@@ -8,7 +8,8 @@ interface Props { unit: WebUnit }
 const { unit } = Astro.props;
 const { sections } = unit;
 
-const num = (i: number) => String(i + 1).padStart(2, '0');
+// Posición visible: "5" si la sección tiene una pantalla, "5.1", "5.2"… si tiene varias
+const pos = (i: number, k: number, total: number) => (total > 1 ? `${i + 1}.${k + 1}` : `${i + 1}`);
 const screenId = (id: string, k: number) => (k === 0 ? id : `${id}-${k + 1}`);
 
 const slides: SlideRef[] = [
@@ -17,13 +18,13 @@ const slides: SlideRef[] = [
     s.screens.map((_, k) => ({
       id: screenId(s.id, k),
       section: i,
-      label: `${num(i)} ${s.label}${s.screens.length > 1 ? ` (${k + 1}/${s.screens.length})` : ''}`,
+      label: `${pos(i, k, s.screens.length)} ${s.label}`,
     })),
   ),
 ];
 ---
 <WebLayout title={unit.title} description={unit.description} slides={slides} sections={sections}>
-  <section class="slide slide--cover" id="inicio" data-section="-1" data-where="Portada" aria-label="Portada">
+  <section class="slide slide--cover" id="inicio" data-section="-1" data-pos="" data-label="Portada" aria-label="Portada">
     <img class="cover__img" src={unit.cover.src} alt={unit.cover.alt} />
     <div class="cover__body">
       <p class="cover__kicker reveal">{unit.subtitle}</p>
@@ -37,11 +38,11 @@ const slides: SlideRef[] = [
   {sections.map((s, i) => s.screens.map((blocks, k) => (
     <section
       class="slide" id={screenId(s.id, k)} data-section={i}
-      data-where={`${num(i)} · ${s.label}${s.screens.length > 1 ? ` · ${k + 1}/${s.screens.length}` : ''}`}
+      data-pos={pos(i, k, s.screens.length)} data-label={s.label}
       aria-label={s.label}
     >
       <header class="slide__head reveal">
-        <p class="slide__num">{num(i)}{s.screens.length > 1 && <span> · {k + 1} / {s.screens.length}</span>}</p>
+        <p class="slide__num">{pos(i, k, s.screens.length)}</p>
         <h2 class="slide__title" set:html={s.title} />
       </header>
       <div class="slide__body">
