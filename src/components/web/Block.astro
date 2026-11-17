@@ -39,13 +39,20 @@ const { block, id } = Astro.props;
 )}
 
 {block.type === 'cards' && (
-  <div class="cards reveal">
+  <div class:list={['cards reveal', { 'cards--2': block.columns === 2 }]}>
     {block.items.map((c, i) => (
       <article class="card">
         <h3><span>{String(i + 1).padStart(2, '0')}</span>{c.title}</h3>
-        <p set:html={c.text} />
+        <div class="card__text" set:html={c.text} />
       </article>
     ))}
+  </div>
+)}
+
+{block.type === 'list' && (
+  <div class:list={['list reveal', { 'list--refs': block.refs }]}>
+    {block.title && <h3>{block.title}</h3>}
+    <ul>{block.items.map((it) => <li set:html={it} />)}</ul>
   </div>
 )}
 

@@ -1,6 +1,6 @@
 import type { WebUnit } from '../types/web';
 
-// Prototipo: 5 de los 15 apartados del guion (docs/medicinasigloXX_u4.docx).
+// Los 15 apartados del guion (docs/medicinasigloXX_u4.docx).
 export const u4: WebUnit = {
   title: 'El desarrollo de la medicina en el siglo XX',
   subtitle: 'Unidad 4',
@@ -85,16 +85,70 @@ export const u4: WebUnit = {
       ]],
     },
     {
+      id: 'trasplante-corazon',
+      label: 'Cirugía. Primer trasplante de corazón',
+      title: 'Cirugía. Primer trasplante de corazón',
+      screens: [[
+        {
+          type: 'split',
+          image: {
+            src: '/images/u4/barnard.jpg',
+            alt: 'Retrato en blanco y negro del cirujano Christiaan Barnard',
+            credit: 'Commons Wikimedia. (1972). Christiaan Barnard [fotografía]. CC BY 4.0. Tomada de https://commons.wikimedia.org/w/index.php?curid=142422502',
+          },
+          blocks: [
+            {
+              type: 'stats',
+              items: [{ value: '18 días', label: 'Sobrevivió Louis Washkansky al primer trasplante de corazón' }],
+            },
+            {
+              type: 'text',
+              paragraphs: [
+                'El cirujano sudafricano Christiaan Barnard realizó con éxito el primer trasplante de corazón humano del mundo en el Hospital Groote Schuur, de Ciudad del Cabo, Sudáfrica. El paciente, Louis Washkansky —53-56 años—, sobrevivió 18 días, pero el hecho transformó la medicina (Lyons y Petrucelli, 1984).',
+              ],
+            },
+          ],
+        },
+      ]],
+    },
+    {
+      id: 'trasplantes-mexico',
+      label: 'Cirugía. Trasplantes en México',
+      title: 'Cirugía. Trasplantes en México',
+      screens: [[
+        {
+          type: 'stats',
+          items: [
+            {
+              value: '1963',
+              label: 'Primer trasplante de órganos en México',
+              note: 'El doctor Federico Ortiz Quesada trasplantó un riñón de donante vivo en el Instituto Mexicano del Seguro Social (IMSS).',
+            },
+            {
+              value: '1988',
+              label: 'Primer trasplante exitoso de corazón en México',
+              note: 'Lo llevó a cabo el doctor Rubén Argüero Sánchez, de la Facultad de Medicina de la Universidad Nacional Autónoma de México (UNAM).',
+            },
+          ],
+        },
+      ]],
+    },
+    {
       id: 'modelo-biomedico',
       label: 'El modelo biomédico',
       title: 'El modelo biomédico',
       screens: [[
         {
-          type: 'text',
-          paragraphs: [
-            'El siglo XX dio inicio con el paradigma científico natural de la patología, que fue el soporte de los subparadigmas: el anatomoclínico, de orientación morfológica; el fisiopatológico, fundado en la noción de los procesos; el etiopatológico, con enfoque causal; y, como diría Ortiz Quesada, la síntesis de todos, el modelo biomédico, con bases en la biología molecular.',
-          ],
+          type: 'callout',
+          text: 'El siglo XX dio inicio con el paradigma científico natural de la patología, que fue el soporte de los subparadigmas: el anatomoclínico, de orientación morfológica; el fisiopatológico, fundado en la noción de los procesos; el etiopatológico, con enfoque causal; y, como diría Ortiz Quesada, la síntesis de todos, el modelo biomédico, con bases en la biología molecular.',
         },
+      ]],
+    },
+    {
+      id: 'caracteristicas',
+      label: 'Características del modelo biomédico',
+      title: 'Características del modelo biomédico',
+      screens: [[
         {
           type: 'cards',
           items: [
@@ -109,6 +163,43 @@ export const u4: WebUnit = {
             {
               title: 'Especialidades',
               text: 'El modelo biomédico permitió el desarrollo de varias especialidades: la bacteriología, la cirugía moderna, la farmacología y la medicina basada en evidencia, lo que favoreció grandes avances en vacunas, antibióticos, anestesia, trasplantes, etc., y transformó la medicina en una ciencia altamente técnica y especializada.',
+            },
+          ],
+        },
+      ]],
+    },
+    {
+      id: 'ruptura-epistemica',
+      label: 'Ruptura epistémica en el conocimiento de la enfermedad',
+      title: 'Ruptura epistémica en el conocimiento de la enfermedad',
+      screens: [[
+        {
+          type: 'split',
+          image: {
+            src: '/images/u4/mind_body.jpg',
+            alt: 'Libro Mind and body: psychosomatic medicine, de Flanders Dunbar, sobre un escritorio',
+            credit: 'Gemini. (2026). Imagen del libro Mind and body: psychosomatic medicine [imagen]. Generada por inteligencia artificial de https://gemini.google.com/',
+          },
+          blocks: [
+            {
+              type: 'text',
+              paragraphs: [
+                'El siglo XX, caracterizado por su progreso científico y tecnológico, cuyo saber médico centró la visión de la enfermedad en las alteraciones orgánicas a nivel molecular, susceptibles de medición, empezó, como señala Ortiz (2004), con una ruptura epistémica en el conocimiento de la enfermedad, pues, a partir de la teoría psicoanalítica propuesta por el médico austriaco Sigmund Freud —1856-1939—, las personas pacientes empezaron a narrar sus enfermedades y padecimientos ante los médicos que les prestaban atención; fueron pacientes escuchados, visualizados como personas, por lo que la relación médico-persona enferma sobrepasó la rutina de sólo hacer las revisiones físicas.',
+              ],
+            },
+          ],
+        },
+      ], [
+        {
+          type: 'cards',
+          items: [
+            {
+              title: 'Psicoanálisis',
+              text: 'El psicoanálisis, iniciado a finales del siglo XIX como método terapéutico, siguió vigente durante todo el siglo XX como medicina psicosomática. Entre sus representantes, está Helen Flanders Dunbar —1902-1959—, figura pionera en la medicina psicosomática en Estados Unidos, lo que impulsó la visión integral de que las emociones y la personalidad influyen directamente en la enfermedad física (Ortiz, 2004).',
+            },
+            {
+              title: 'Enfoque antropopatológico',
+              text: 'Dio pie a la investigación psique-cuerpo como un todo del sujeto, en contraposición al dualismo mente-cuerpo, planteado por el filósofo francés René Descartes —1596-1650—, quien señalaba que eran entidades distintas.',
             },
           ],
         },
@@ -156,6 +247,207 @@ export const u4: WebUnit = {
                 { value: '1960', label: 'ISSSTE', note: 'El 1 de enero, el Instituto de Seguridad y Servicios Sociales de los Trabajadores del Estado empezó a dar atención a trabajadores públicos.' },
               ],
             },
+          ],
+        },
+      ]],
+    },
+    {
+      id: 'especialistas',
+      label: 'Formación de médicos especialistas en México',
+      title: 'Formación de médicos especialistas en México',
+      screens: [[
+        {
+          type: 'text',
+          columns: 2,
+          paragraphs: [
+            'El médico del siglo XX empezó prácticamente como médico general, para, de inmediato, transformarse en especialista, como lo fueron exigiendo los tiempos y los avances de la ciencia. Empezó el siglo XX con unos retos y terminó la centuria con otros.',
+            'Pedro Laín (1984) señala que, en la historia de la humanidad, nunca hubo un periodo en el que cambiara tanto la realidad del enfermar como en el que siguió a la Primera Guerra Mundial, donde se presentaron enfermedades por malnutrición, infecciosas, metabólicas, neoplásicas y traumatismos. Los desafíos que se enfrentaron al finalizar el siglo XX fueron de otra índole, dolencias cuya causa es fundamentalmente social: estrés, neurosis, violencia, alcoholismo, traumas, entre otras (Laín, 1984).',
+          ],
+        },
+      ], [
+        {
+          type: 'cards',
+          items: [
+            {
+              title: '1905: Hospital General de México',
+              text: 'Se formalizó la atención médica especializada y su enseñanza basada en cuatro áreas básicas, con las que surgieron las escuelas de especialidades hacia 1920, con destacados médicos como el urólogo Aquilino Villanueva, el cardiólogo Ignacio Chávez, el gastroenterólogo Abraham Ayala González, el nutriólogo Salvador Zubirán y el tisiólogo Ismael Cosío Villegas.',
+            },
+            {
+              title: '1942: Modelo de residencias',
+              text: 'En el Hospital General, inició el modelo de residencias de especialización. En breve, el modelo se extendió a otras instituciones, entre ellas el Hospital Infantil de México, el de Enfermedades de la Nutrición y el Instituto Nacional de Cardiología. En 1954, inició el mismo modelo en el Centro Médico “La Raza”.',
+            },
+            {
+              title: 'Subespecialización',
+              text: 'Una tendencia ya observada a finales del siglo XX fue la subespecialización, que ha sido muy necesaria, pero en la que se debe tener cuidado de no caer en el extremo de “ser un experto en lo particular y un ignorante en lo general” (Fajardo, 2012, p. XX).',
+            },
+          ],
+        },
+      ]],
+    },
+    {
+      id: 'bioetica',
+      label: 'Comités de bioética',
+      title: 'Comités de bioética',
+      screens: [[
+        {
+          type: 'split',
+          image: {
+            src: '/images/u4/cesarea_equipo.jpg',
+            alt: 'Equipo quirúrgico con batas azules realizando una cesárea en un quirófano',
+            credit: 'Commons Wikimedia. (2009). Equipo de cesárea [fotografía]. CC BY-SA 4.0. Tomada de https://commons.wikimedia.org/w/index.php?curid=6727623',
+          },
+          blocks: [
+            {
+              type: 'text',
+              paragraphs: [
+                'La bioética emergió en la década de 1970 como un campo interdisciplinario que abarca tanto problemáticas ecológicas como médicas. Su consolidación respondió a una serie de transformaciones e innovaciones tecnológicas, nuevos descubrimientos científicos y prácticas clínicas que, en ocasiones, vulneraron la dignidad de la persona paciente y que hicieron evidente la necesidad de establecer marcos éticos más rigurosos.',
+              ],
+            },
+            {
+              type: 'list',
+              title: 'Principales temas de la bioética',
+              items: ['Eutanasia', 'Aborto', 'Anticoncepción', 'Fertilización in vitro', 'Ingeniería genética', 'Eugenesia', 'Clonación'],
+            },
+          ],
+        },
+      ], [
+        {
+          type: 'split',
+          reverse: true,
+          image: {
+            src: '/images/u4/laboratorio.jpg',
+            alt: 'Investigador con bata y guantes manipulando un tubo de ensayo en un laboratorio',
+            credit: 'Commons Wikimedia. (2017). Laboratorio [fotografía]. CC BY-SA 4.0. Tomada de https://commons.wikimedia.org/w/index.php?curid=65283243',
+          },
+          blocks: [
+            {
+              type: 'callout',
+              text: 'Durante la segunda mitad del siglo XX, se impulsó la creación de comités de bioética, los cuales comenzaron a operar en instituciones de investigación y hospitales, con el propósito de regular y orientar la toma de decisiones en ámbitos sensibles.',
+            },
+          ],
+        },
+      ]],
+    },
+    {
+      id: 'desafios',
+      label: 'Finales del siglo XX y desafíos del siglo XXI',
+      title: 'Finales del siglo XX y desafíos del siglo XXI',
+      screens: [[
+        {
+          type: 'text',
+          paragraphs: [
+            'De manera paralela a los alcances y éxitos de la medicina, es importante mencionar que, al final del siglo, hay cuestiones, aún vigentes, que requieren atención.',
+          ],
+        },
+        {
+          type: 'split',
+          image: {
+            src: '/images/u4/resonancia_funcional.jpg',
+            alt: 'Persona entrando a un equipo de resonancia magnética funcional',
+            credit: 'Commons Wikimedia. (2019). Resonancia magnética [fotografía]. Thomas Angus, Imperial College London. CC BY-SA 4.0. Tomada de https://commons.wikimedia.org/w/index.php?curid=89222586',
+          },
+          blocks: [
+            {
+              type: 'list',
+              title: 'Logros de la medicina en la etapa moderna',
+              items: [
+                'Control de enfermedades infecciosas devastadoras',
+                'Medicina altamente especializada y basada en evidencia',
+                'Trasplantes, antibióticos, vacunas y cirugía avanzada',
+                'Aumento de la esperanza de vida de 34 a 73 años',
+                'Creación de instituciones sólidas de salud pública',
+                'Imagenología de alta precisión y diagnóstico molecular',
+              ],
+            },
+          ],
+        },
+      ], [
+        {
+          type: 'list',
+          title: 'Desafíos de la medicina en la actualidad',
+          items: [
+            '<strong>Deshumanización en la relación médico-paciente:</strong> el médico ha tratado a la persona enferma con menos cortesía, olvidando que, como se cita en Laín (1984), “[…] El primer acto del tratamiento es el acto de dar la mano al enfermo” (p. 21).',
+            '<strong>Altos costos:</strong> la tecnología, muy eficiente, resultó inaccesible para un alto porcentaje de la población.',
+            '<strong>Enfermedades crónicas no cedentes:</strong> cáncer, sida, diabetes, hipertensión y enfermedades degenerativas.',
+            '<strong>Nuevas dolencias de causa social:</strong> estrés, neurosis, violencia, alcoholismo, depresión y traumatismos.',
+            'Se debe mejorar la atención a la población mayor y a la violencia familiar.',
+          ],
+        },
+      ]],
+    },
+    {
+      id: 'tendencias',
+      label: 'Pregunta interactiva',
+      title: 'Tres grandes tendencias del saber médico en el siglo XX',
+      screens: [[
+        {
+          type: 'split',
+          image: {
+            src: '/images/u4/auscultacion.jpg',
+            alt: 'Médico auscultando a una paciente con un estetoscopio',
+            credit: 'Commons Wikimedia. (2006). Auscultación en una mujer [fotografía]. Dominio público. Tomada de https://commons.wikimedia.org/w/index.php?curid=6254910',
+          },
+          blocks: [
+            {
+              type: 'cards',
+              columns: 2,
+              items: [
+                { title: 'Modelo biomédico', text: '<ul><li>Enfermedad, a nivel de alteración molecular</li><li>Diagnóstico objetivo</li><li>Terapia con fármacos o cirugía</li></ul>' },
+                { title: 'Enfoque psicosomático', text: '<ul><li>Psicoanálisis —Freud—</li><li>Psique-cuerpo</li><li>Medicina integral —Helen Flanders Dunbar—</li></ul>' },
+                { title: 'Salud pública', text: '<ul><li>Programas de gobierno</li><li>Vacunación masiva</li><li>Vivienda y alimentación</li></ul>' },
+                { title: 'Determinantes sociales', text: '<ul><li>Salud como derecho</li><li>Vivienda digna</li><li>Reducción de mortalidad</li></ul>' },
+              ],
+            },
+            {
+              type: 'text',
+              paragraphs: ['Esas dimensiones no son excluyentes entre sí y representan aspectos complementarios del proceso salud-enfermedad.'],
+            },
+          ],
+        },
+      ]],
+    },
+    {
+      id: 'conclusiones',
+      label: 'Conclusiones',
+      title: 'Perspectivas del profesional de la salud: reflexión final',
+      screens: [[
+        {
+          type: 'text',
+          paragraphs: [
+            'El recorrido por el siglo XX revela que la medicina es una disciplina en permanente transformación, impulsada por el avance científico y tecnológico, pero también por las demandas sociales, éticas y humanísticas de cada época. El profesional de la salud del siglo XXI hereda tanto los logros como los desafíos no resueltos de la centuria anterior.',
+          ],
+        },
+        {
+          type: 'cards',
+          items: [
+            { title: 'Ciencia y tecnología', text: 'Continuar integrando los avances de la biología molecular, la genética y la imagenología al servicio del diagnóstico y el tratamiento preciso.' },
+            { title: 'Humanización', text: 'Recuperar la dimensión humana de la relación médico-paciente, recordando que, como señala Laín (1984), la terapia inicia al darle la mano a la persona en enfermedad.' },
+            { title: 'Visión social', text: 'Atender los determinantes sociales de la salud y garantizar el acceso equitativo a una medicina de calidad para toda la población.' },
+            { title: 'Ética y bioética', text: 'Fortalecer los marcos éticos ante los nuevos desafíos de la ingeniería genética, la clonación, la eutanasia y las tecnologías emergentes.' },
+          ],
+        },
+      ], [
+        {
+          type: 'callout',
+          text: 'La historia del profesionalismo médico nos enseña que el verdadero avance de la medicina no reside únicamente en sus logros técnicos, sino en su capacidad de integrar ciencia, humanismo y justicia social al servicio del ser humano.',
+        },
+      ]],
+    },
+    {
+      id: 'cierre',
+      label: 'Cierre',
+      title: 'Fuentes de información',
+      screens: [[
+        {
+          type: 'list',
+          title: 'Bibliografía',
+          refs: true,
+          items: [
+            'Fajardo, Germán. (2012). Introducción. En Germán Fajardo, Enrique Graue, David Kershenobich y Pelayo Vilar (Eds.). <em>Desarrollo de las especialidades médicas en México</em>. Editorial Alfil.',
+            'Laín, Pedro. (1984). <em>Historia universal de la medicina</em>. Salvat.',
+            'Lavalle, Carlos y Santacruz, Javier. (2014). Conclusiones y lecciones aprendidas de la experiencia internacional. En Germán Fajardo, Javier Santacruz y Carlos Lavalle (Eds.). <em>La formación de médicos especialistas en México</em> (pp. 27-30). Academia Nacional de Medicina de México/Consejo Nacional de Ciencia y Tecnología.',
+            'Lyons, Albert Sidney. y Petrucelli, R. Joseph. (1984). <em>Historia de la medicina</em>. Ediciones Doyma.',
+            'Ortiz, Fernando. (2004). <em>Principia médica. La medicina y el hombre</em>. Editores de Textos Mexicanos.',
           ],
         },
       ]],

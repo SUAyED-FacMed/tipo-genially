@@ -12,7 +12,8 @@ export type Block =
   | { type: 'text'; paragraphs: string[]; columns?: 2 }
   | { type: 'split'; image: Img; title?: string; blocks: Block[]; reverse?: boolean }
   | { type: 'stats'; items: { value: string; label: string; note?: string }[] }
-  | { type: 'cards'; items: { title: string; text: string }[] }
+  | { type: 'cards'; items: { title: string; text: string }[]; columns?: 2 } // text admite HTML (p. ej. <ul>)
+  | { type: 'list'; title?: string; items: string[]; refs?: boolean }
   | { type: 'hotspots'; image: Img; points: { x: number; y: number; title: string; text: string; image?: Img }[] }
   | { type: 'callout'; text: string };
 
