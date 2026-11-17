@@ -115,19 +115,31 @@ export const u4: WebUnit = {
       id: 'trasplantes-mexico',
       label: 'Cirugía. Trasplantes en México',
       title: 'Cirugía. Trasplantes en México',
+      celebrate: true,
       screens: [[
         {
-          type: 'stats',
-          items: [
+          type: 'split',
+          image: {
+            src: '/images/u4/arguero.jpg',
+            alt: 'El doctor Rubén Argüero Sánchez, sonriente, con bata de la UNAM y un libro abierto en las manos',
+            // shortcut: fuente tomada del Genially anterior sin crédito; diseño instruccional debe confirmarla
+            credit: 'Dr. Rubén Argüero Sánchez [fotografía]. Fuente por confirmar.',
+          },
+          blocks: [
             {
-              value: '1963',
-              label: 'Primer trasplante de órganos en México',
-              note: 'El doctor Federico Ortiz Quesada trasplantó un riñón de donante vivo en el Instituto Mexicano del Seguro Social (IMSS).',
-            },
-            {
-              value: '1988',
-              label: 'Primer trasplante exitoso de corazón en México',
-              note: 'Lo llevó a cabo el doctor Rubén Argüero Sánchez, de la Facultad de Medicina de la Universidad Nacional Autónoma de México (UNAM).',
+              type: 'stats',
+              items: [
+                {
+                  value: '1963',
+                  label: 'Primer trasplante de órganos en México',
+                  note: 'El doctor Federico Ortiz Quesada trasplantó un riñón de donante vivo en el Instituto Mexicano del Seguro Social (IMSS).',
+                },
+                {
+                  value: '1988',
+                  label: 'Primer trasplante exitoso de corazón en México',
+                  note: 'Lo llevó a cabo el doctor Rubén Argüero Sánchez, de la Facultad de Medicina de la Universidad Nacional Autónoma de México (UNAM).',
+                },
+              ],
             },
           ],
         },

@@ -39,6 +39,7 @@ const slides: SlideRef[] = [
     <section
       class="slide" id={screenId(s.id, k)} data-section={i}
       data-pos={pos(i, k, s.screens.length)} data-label={s.label}
+      data-celebrate={s.celebrate && k === 0 ? '' : undefined}
       aria-label={s.label}
     >
       <header class="slide__head reveal">

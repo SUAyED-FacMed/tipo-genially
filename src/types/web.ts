@@ -24,6 +24,7 @@ export interface Section {
   label: string; // texto en el índice
   title: string;
   screens: Screen[];
+  celebrate?: boolean; // ráfaga de confeti la primera vez que se llega (salen de las cifras de la pantalla)
 }
 
 export interface WebUnit {
