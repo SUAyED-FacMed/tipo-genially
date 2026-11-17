@@ -1,0 +1,52 @@
+---
+// Renderiza una unidad completa a partir de sus datos. Una página nueva = un archivo de datos + este componente.
+import WebLayout, { type SlideRef } from '../../layouts/WebLayout.astro';
+import Block from './Block.astro';
+import type { WebUnit } from '../../types/web';
+
+interface Props { unit: WebUnit }
+const { unit } = Astro.props;
+const { sections } = unit;
+
+const num = (i: number) => String(i + 1).padStart(2, '0');
+const screenId = (id: string, k: number) => (k === 0 ? id : `${id}-${k + 1}`);
+
+const slides: SlideRef[] = [
+  { id: 'inicio', section: -1, label: 'Portada' },
+  ...sections.flatMap((s, i) =>
+    s.screens.map((_, k) => ({
+      id: screenId(s.id, k),
+      section: i,
+      label: `${num(i)} ${s.label}${s.screens.length > 1 ? ` (${k + 1}/${s.screens.length})` : ''}`,
+    })),
+  ),
+];
+---
+<WebLayout title={unit.title} description={unit.description} slides={slides} sections={sections}>
+  <section class="slide slide--cover" id="inicio" data-section="-1" data-where="Portada" aria-label="Portada">
+    <img class="cover__img" src={unit.cover.src} alt={unit.cover.alt} />
+    <div class="cover__body">
+      <p class="cover__kicker reveal">{unit.subtitle}</p>
+      <h1 class="reveal" set:html={unit.title} />
+      {unit.author && <p class="cover__sub reveal">{unit.author}</p>}
+      {sections[0] && <a class="cover__cta reveal" href={`#${sections[0].id}`}>Comenzar →</a>}
+    </div>
+    {unit.cover.credit && <p class="cover__credit">{unit.cover.credit}</p>}
+  </section>
+
+  {sections.map((s, i) => s.screens.map((blocks, k) => (
+    <section
+      class="slide" id={screenId(s.id, k)} data-section={i}
+      data-where={`${num(i)} · ${s.label}${s.screens.length > 1 ? ` · ${k + 1}/${s.screens.length}` : ''}`}
+      aria-label={s.label}
+    >
+      <header class="slide__head reveal">
+        <p class="slide__num">{num(i)}{s.screens.length > 1 && <span> · {k + 1} / {s.screens.length}</span>}</p>
+        <h2 class="slide__title" set:html={s.title} />
+      </header>
+      <div class="slide__body">
+        {blocks.map((b, j) => <Block block={b} id={`${screenId(s.id, k)}-${j}`} />)}
+      </div>
+    </section>
+  )))}
+</WebLayout>

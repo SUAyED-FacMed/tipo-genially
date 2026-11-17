@@ -1,0 +1,104 @@
+---
+import type { Block } from '../../types/web';
+import Figure from './Figure.astro';
+
+interface Props {
+  block: Block;
+  id: string; // único por bloque, para ids internos
+}
+const { block, id } = Astro.props;
+---
+{block.type === 'text' && (
+  <div class:list={['prose reveal', { 'prose--2col': block.columns === 2 }]}>
+    {block.paragraphs.map((p) => <p set:html={p} />)}
+  </div>
+)}
+
+{block.type === 'callout' && <p class="callout reveal" set:html={block.text} />}
+
+{block.type === 'split' && (
+  <div class:list={['split', { 'split--reverse': block.reverse }]}>
+    <Figure img={block.image} class="split__media reveal" />
+    <div class="split__body">
+      {block.title && <h3 class="reveal">{block.title}</h3>}
+      {block.blocks.map((b, j) => <Astro.self block={b} id={`${id}-${j}`} />)}
+    </div>
+  </div>
+)}
+
+{block.type === 'stats' && (
+  <div class="stats reveal">
+    {block.items.map((s) => (
+      <div class="stat">
+        <p class="stat__value">{s.value}</p>
+        <p class="stat__label">{s.label}</p>
+        {s.note && <p class="stat__note">{s.note}</p>}
+      </div>
+    ))}
+  </div>
+)}
+
+{block.type === 'cards' && (
+  <div class="cards reveal">
+    {block.items.map((c, i) => (
+      <article class="card">
+        <h3><span>{String(i + 1).padStart(2, '0')}</span>{c.title}</h3>
+        <p set:html={c.text} />
+      </article>
+    ))}
+  </div>
+)}
+
+{block.type === 'hotspots' && (
+  <div class="hs" data-hs>
+    <figure class="hs__figure reveal">
+      <div class="hs__stage"><div class="hs__frame">
+        <img src={block.image.src} alt={block.image.alt} />
+        {block.points.map((p, i) => (
+          <button
+            class="hs__pin" type="button" style={`left:${p.x}%;top:${p.y}%`}
+            data-hs-i={i} aria-pressed={i === 0 ? 'true' : 'false'} aria-controls={`${id}-${i}`}
+            aria-label={`Punto ${i + 1}: ${p.title}`}
+          >{i + 1}</button>
+        ))}
+      </div></div>
+      {block.image.credit && <figcaption>{block.image.credit}</figcaption>}
+    </figure>
+    <ol class="hs__list reveal">
+      {block.points.map((p, i) => (
+        <li class:list={['hs__item', { 'is-active': i === 0, 'hs__item--img': p.image }]} id={`${id}-${i}`} data-hs-i={i}>
+          <div>
+            <h3><span class="hs__badge">{i + 1}</span>{p.title}</h3>
+            <p set:html={p.text} />
+          </div>
+          {p.image && <Figure img={p.image} />}
+        </li>
+      ))}
+    </ol>
+  </div>
+)}
+
+<script>
+  // Hotspots: el contenido siempre está visible; el pin solo resalta su texto.
+  document.querySelectorAll<HTMLElement>('[data-hs]').forEach((root) => {
+    if (root.dataset.bound) return;
+    root.dataset.bound = '1';
+    // Ajusta el marco al tamaño real de la imagen para que los pines (en %) caigan donde deben.
+    // El lienzo es fijo (1600×900), así que basta con hacerlo una vez.
+    const stage = root.querySelector<HTMLElement>('.hs__stage')!;
+    const frame = root.querySelector<HTMLElement>('.hs__frame')!;
+    const img = frame.querySelector('img')!;
+    img.decode().then(() => {
+      const r = img.naturalWidth / img.naturalHeight;
+      const w = Math.min(stage.clientWidth, stage.clientHeight * r);
+      frame.style.width = `${w}px`;
+      frame.style.height = `${w / r}px`;
+    }).catch(() => {});
+    root.addEventListener('click', (e) => {
+      const i = (e.target as Element).closest<HTMLElement>('[data-hs-i]')?.dataset.hsI;
+      if (i === undefined) return;
+      root.querySelectorAll<HTMLElement>('.hs__pin').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.hsI === i)));
+      root.querySelectorAll<HTMLElement>('.hs__item').forEach((li) => li.classList.toggle('is-active', li.dataset.hsI === i));
+    });
+  });
+</script>

@@ -1,0 +1,13 @@
+---
+import type { Img } from '../../types/web';
+
+interface Props {
+  img: Img;
+  class?: string;
+}
+const { img, class: cls } = Astro.props;
+---
+<figure class={cls}>
+  <img src={img.src} alt={img.alt} />
+  {img.credit && <figcaption>{img.credit}</figcaption>}
+</figure>
