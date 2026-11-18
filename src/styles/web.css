@@ -90,7 +90,7 @@ figure.reveal { overflow: clip; border-radius: 4px; }
 /* Grupos (cifras, columnas, puntos, listas): el contenedor queda quieto y cada elemento entra en cascada */
 .slide.is-shown :is(.stats, .cards, .hs__list, .list).reveal { animation: none; }
 .slide.is-shown :is(.stats, .cards, .hs__list).reveal > *,
-.slide.is-shown .list.reveal :is(h3, li) {
+.slide.is-shown .list.reveal :is(h3, p, li) {
   animation: rise 0.8s var(--out) calc(var(--d, 0ms) + var(--k, 0) * 110ms) backwards;
 }
 :is(.stats, .cards, .hs__list).reveal > :nth-child(2), .list.reveal li:nth-child(1) { --k: 1; }
@@ -117,7 +117,7 @@ figure.reveal { overflow: clip; border-radius: 4px; }
 .slide:not(.is-shown) :is(
   .reveal:not(:is(.stats, .cards, .hs__list, .list, figure)),
   :is(.stats, .cards, .hs__list).reveal > *,
-  .list.reveal :is(h3, li),
+  .list.reveal :is(h3, p, li),
   figure.reveal figcaption
 ) { opacity: 0; }
 .slide:not(.is-shown) figure.reveal img { opacity: 0; }
@@ -125,9 +125,14 @@ figure.reveal { overflow: clip; border-radius: 4px; }
 
 .measuring * { animation: none !important; }
 
+/* Barras: crecen desde la izquierda, una tras otra */
+@keyframes grow { from { transform: scaleX(0); } }
+.slide.is-shown .hbar__fill { animation: grow 1.2s var(--out) calc(var(--d, 0ms) + 200ms + var(--k, 0) * 250ms) backwards; }
+.slide:not(.is-shown) .hbar__fill { transform: scaleX(0); }
+
 @media (prefers-reduced-motion: reduce) {
   .track { transition: none; }
-  .slide.is-shown :is(.reveal, .reveal > *, .reveal li, figure.reveal img, figcaption, .hs__pin) {
+  .slide.is-shown :is(.reveal, .reveal > *, .reveal li, figure.reveal img, figcaption, .hs__pin, .hbar__fill) {
     animation-name: fade !important; animation-duration: 0.3s !important;
   }
 }
@@ -170,15 +175,31 @@ figcaption { font-size: 12px; color: var(--ink-soft); margin-top: 8px; line-heig
 
 /* ─── Cifras ─── */
 /* Cifras a la vista, sin recuadros: número grande y una línea divisoria entre ellas */
-.stats { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; }
+/* Ancho según contenido: estiradas a todo lo ancho parecían encabezados de las columnas de texto de abajo */
+.stats { display: grid; grid-auto-flow: column; grid-auto-columns: max-content; justify-content: start; }
 .stat { padding: 4px 40px; border-left: 1px solid var(--line); }
 .stat:first-child { padding-left: 0; border-left: 0; }
 .stat__value { font: 700 84px/0.95 var(--font-display); color: var(--navy); letter-spacing: -0.02em; }
-.stat__label { font-weight: 600; margin-top: 14px; color: var(--ink); }
-.stat__note { font-size: 17px; color: var(--ink-soft); margin-top: 4px; line-height: 1.45; max-width: 30ch; }
+.stat__label { font-weight: 600; margin-bottom: 12px; color: var(--ink-soft); }
+.stat__unit { font-size: 0.42em; font-weight: 600; letter-spacing: 0; }
+.stat__note { font-size: 18px; color: var(--ink); margin-top: 8px; line-height: 1.45; max-width: 30ch; }
 .split .stat { padding: 4px 28px; }
 .split .stat:first-child { padding-left: 0; }
 .split .stat__value { font-size: 56px; }
+
+/* ─── Fila: bloques lado a lado ─── */
+.row { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 72px; align-items: center; }
+
+/* ─── Barras comparativas ─── */
+.bars { display: grid; gap: 36px; }
+.bars__title { font: 700 30px/1.2 var(--font-display); color: var(--navy); }
+.hbar__label { font-weight: 600; color: var(--ink); margin-bottom: 10px; }
+.hbar__line { display: flex; align-items: center; gap: 20px; }
+/* El largo es proporcional al valor mayor; se reservan 200px para la cifra */
+.hbar__fill { flex: none; width: calc((100% - 200px) * var(--p)); height: 64px; background: var(--ink-soft); border-radius: 2px; transform-origin: left; }
+.hbar:last-child .hbar__fill { background: var(--navy); }
+.hbar__value { font: 700 64px/1 var(--font-display); color: var(--navy); letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.hbar__value small { font-size: 26px; font-weight: 600; letter-spacing: 0; }
 
 /* ─── Tarjetas ─── */
 /* Columnas de texto, sin tarjetas: la línea superior y el número bastan para agrupar */
@@ -195,8 +216,10 @@ figcaption { font-size: 12px; color: var(--ink-soft); margin-top: 8px; line-heig
 /* ─── Lista ─── */
 .list { max-width: 1100px; }
 .list h3 { font-size: 26px; color: var(--navy); margin-bottom: 14px; }
+.list__intro { color: var(--ink-soft); margin-bottom: 10px; }
 .list li { font-size: 19px; color: var(--ink-soft); line-height: 1.5; }
-.list strong { color: var(--ink); font-weight: 600; }
+.list strong, .prose strong, .card__text strong { color: var(--ink); font-weight: 600; }
+.callout strong { font-weight: 700; }
 .list--refs ul { gap: 14px; }
 .list--refs li { font-size: 18px; padding-left: 0; }
 .list--refs li::before { content: none; }

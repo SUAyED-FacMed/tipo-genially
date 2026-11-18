@@ -9,5 +9,5 @@ const { img, class: cls } = Astro.props;
 ---
 <figure class={cls}>
   <img src={img.src} alt={img.alt} />
-  {img.credit && <figcaption>{img.credit}</figcaption>}
+  {img.credit && <figcaption set:html={img.credit} />}
 </figure>

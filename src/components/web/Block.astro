@@ -16,6 +16,28 @@ const { block, id } = Astro.props;
 
 {block.type === 'callout' && <p class="callout reveal" set:html={block.text} />}
 
+{block.type === 'row' && (
+  <div class="row">{block.blocks.map((b, j) => <Astro.self block={b} id={`${id}-${j}`} />)}</div>
+)}
+
+{block.type === 'bars' && (() => {
+  const max = Math.max(...block.items.map((it) => it.value));
+  return (
+    <div class="bars reveal" role="group" aria-label={block.title}>
+      {block.title && <p class="bars__title">{block.title}</p>}
+      {block.items.map((it, k) => (
+        <div class="hbar" style={`--p:${it.value / max};--k:${k}`}>
+          <p class="hbar__label">{it.label}</p>
+          <div class="hbar__line">
+            <span class="hbar__fill" aria-hidden="true"></span>
+            <span class="hbar__value">{it.value}{block.unit && <small>{` ${block.unit}`}</small>}</span>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+})()}
+
 {block.type === 'split' && (
   <div class:list={['split', { 'split--reverse': block.reverse }]}>
     <Figure img={block.image} class="split__media reveal" />
@@ -30,8 +52,8 @@ const { block, id } = Astro.props;
   <div class="stats reveal">
     {block.items.map((s) => (
       <div class="stat">
-        <p class="stat__value">{s.value}</p>
-        <p class="stat__label">{s.label}</p>
+        {s.label && <p class="stat__label">{s.label}</p>}
+        <p class="stat__value">{s.value}{s.unit && <span class="stat__unit">{` ${s.unit}`}</span>}</p>
         {s.note && <p class="stat__note">{s.note}</p>}
       </div>
     ))}
@@ -52,6 +74,7 @@ const { block, id } = Astro.props;
 {block.type === 'list' && (
   <div class:list={['list reveal', { 'list--refs': block.refs }]}>
     {block.title && <h3>{block.title}</h3>}
+    {block.intro && <p class="list__intro" set:html={block.intro} />}
     <ul>{block.items.map((it) => <li set:html={it} />)}</ul>
   </div>
 )}
@@ -69,7 +92,7 @@ const { block, id } = Astro.props;
           >{i + 1}</button>
         ))}
       </div></div>
-      {block.image.credit && <figcaption>{block.image.credit}</figcaption>}
+      {block.image.credit && <figcaption set:html={block.image.credit} />}
     </figure>
     <ol class="hs__list reveal">
       {block.points.map((p, i) => (

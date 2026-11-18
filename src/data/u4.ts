@@ -8,7 +8,7 @@ export const u4: WebUnit = {
   cover: {
     src: '/images/u4/portada_fetos.jpg',
     alt: 'Dos fetos preservados en frascos de vidrio dentro de una vitrina de museo',
-    credit: 'Gemini. (2026). Imagen de fetos preservados en vitrinas de exhibición [imagen]. Generada por inteligencia artificial de https://gemini.google.com/',
+    credit: 'Gemini. (2026). <em>Imagen de fetos preservados en vitrinas de exhibición</em> [imagen]. Generada por inteligencia artificial de https://gemini.google.com/',
   },
   sections: [
     {
@@ -16,21 +16,24 @@ export const u4: WebUnit = {
       label: 'Introducción. Los grandes cambios de la medicina',
       title: 'Los grandes cambios de la medicina',
       screens: [[
-        {
-          type: 'stats',
-          items: [
-            { value: '34 años', label: 'Esperanza de vida al comenzar el siglo XX' },
-            { value: '73 años', label: 'Esperanza de vida al concluir el siglo XX' },
-          ],
-        },
+        { type: 'row', blocks: [
         {
           type: 'text',
-          columns: 2,
           paragraphs: [
             'Entre la medicina del siglo XX y la de los siglos anteriores, existe un abismo, producto de hallazgos, descubrimientos e invenciones que se fueron acumulando. Los avances del siglo XX contribuyeron a la consolidación de la medicina científica occidental como un sistema médico de alcance global.',
             'El ejercicio médico incorporó nuevas herramientas diagnósticas y terapéuticas y robusteció sus fundamentos científicos mediante el estudio del cuerpo humano, en niveles progresivamente más complejos: desde los órganos y los tejidos hasta las estructuras moleculares como el ADN, el ARN y, finalmente, el genoma humano, que permitió conocer la esencia misma de la herencia, dejó de sustentarse exclusivamente en la observación clínica y comenzó a apoyarse en el trabajo de laboratorio, integrándose con la biología molecular, la genética, la farmacología y la tecnología.',
           ],
         },
+        {
+          type: 'bars',
+          title: 'Esperanza de vida',
+          unit: 'años',
+          items: [
+            { value: 34, label: 'Al comenzar el siglo XX' },
+            { value: 73, label: 'Al concluir el siglo XX' },
+          ],
+        },
+        ] },
       ]],
     },
     {
@@ -43,7 +46,7 @@ export const u4: WebUnit = {
           image: {
             src: '/images/u4/resonancia_philips.jpg',
             alt: 'Equipo de resonancia magnética en una sala de hospital',
-            credit: 'Ainali, J. (2008). Resonancia magnética [imagen]. CC BY 3.0. Tomada de https://commons.wikimedia.org/w/index.php?curid=3546051',
+            credit: 'Ainali, J. (2008). <em>Resonancia magnética</em> [imagen]. CC BY 3.0. Tomada de https://commons.wikimedia.org/w/index.php?curid=3546051',
           },
           points: [
             {
@@ -53,7 +56,7 @@ export const u4: WebUnit = {
               image: {
                 src: '/images/u4/cirujano_ww1.jpg',
                 alt: 'Cirujano operando en un hospital de campaña con un equipo de rayos X',
-                credit: 'Gemini. (2026). Imagen de cirujano operando durante la Primera Guerra Mundial [imagen]. Generada por inteligencia artificial de https://gemini.google.com/',
+                credit: 'Gemini. (2026). <em>Imagen de cirujano operando durante la Primera Guerra Mundial</em> [imagen]. Generada por inteligencia artificial de https://gemini.google.com/',
               },
             },
             {
@@ -76,7 +79,7 @@ export const u4: WebUnit = {
           image: {
             src: '/images/u4/fleming_penicilina.jpg',
             alt: 'Alexander Fleming en su laboratorio, sentado frente a cultivos bacterianos',
-            credit: 'Wikimedia. (1943). Synthetic production of penicillin; professor Alexander Fleming [fotografía]. Dominio público. Tomada de https://commons.wikimedia.org/w/index.php?curid=24436974',
+            credit: 'Wikimedia. (1943). <em>Synthetic production of penicillin; professor Alexander Fleming</em> [fotografía]. Dominio público. Tomada de https://commons.wikimedia.org/w/index.php?curid=24436974',
           },
           blocks: [{ type: 'text', paragraphs: [
             'El escocés Alexander Fleming descubrió la penicilina al observar casualmente sus efectos antibióticos sobre un cultivo bacteriano. Para la década de 1940, se inició la era de los antibióticos; aunque el descubrimiento ocurrió en el Reino Unido, durante la Segunda Guerra Mundial, fue Estados Unidos el país que desempeñó un papel decisivo en la producción masiva del fármaco, que salvó millones de vidas.',
@@ -94,12 +97,12 @@ export const u4: WebUnit = {
           image: {
             src: '/images/u4/barnard.jpg',
             alt: 'Retrato en blanco y negro del cirujano Christiaan Barnard',
-            credit: 'Commons Wikimedia. (1972). Christiaan Barnard [fotografía]. CC BY 4.0. Tomada de https://commons.wikimedia.org/w/index.php?curid=142422502',
+            credit: 'Commons Wikimedia. (1972). <em>Christiaan Barnard</em> [fotografía]. CC BY 4.0. Tomada de https://commons.wikimedia.org/w/index.php?curid=142422502',
           },
           blocks: [
             {
               type: 'stats',
-              items: [{ value: '18 días', label: 'Sobrevivió Louis Washkansky al primer trasplante de corazón' }],
+              items: [{ label: 'Louis Washkansky', value: '18', unit: 'días', note: 'sobrevivió al primer trasplante de corazón.' }],
             },
             {
               type: 'text',
@@ -123,7 +126,7 @@ export const u4: WebUnit = {
             src: '/images/u4/arguero.jpg',
             alt: 'El doctor Rubén Argüero Sánchez, sonriente, con bata de la UNAM y un libro abierto en las manos',
             // shortcut: fuente tomada del Genially anterior sin crédito; diseño instruccional debe confirmarla
-            credit: 'Dr. Rubén Argüero Sánchez [fotografía]. Fuente por confirmar.',
+            credit: '<em>Dr. Rubén Argüero Sánchez</em> [fotografía]. Fuente por confirmar.',
           },
           blocks: [
             {
@@ -131,13 +134,11 @@ export const u4: WebUnit = {
               items: [
                 {
                   value: '1963',
-                  label: 'Primer trasplante de órganos en México',
-                  note: 'El doctor Federico Ortiz Quesada trasplantó un riñón de donante vivo en el Instituto Mexicano del Seguro Social (IMSS).',
+                  note: 'El primer trasplante de órganos en México lo realizó el doctor Federico Ortiz Quesada, quien trasplantó un riñón de donante vivo en el Instituto Mexicano del Seguro Social (IMSS), en 1963.',
                 },
                 {
                   value: '1988',
-                  label: 'Primer trasplante exitoso de corazón en México',
-                  note: 'Lo llevó a cabo el doctor Rubén Argüero Sánchez, de la Facultad de Medicina de la Universidad Nacional Autónoma de México (UNAM).',
+                  note: 'El primer trasplante exitoso de corazón en México lo llevó a cabo el doctor Rubén Argüero Sánchez de la Facultad de Medicina de la Universidad Nacional Autónoma de México (UNAM), en 1988.',
                 },
               ],
             },
@@ -152,7 +153,7 @@ export const u4: WebUnit = {
       screens: [[
         {
           type: 'callout',
-          text: 'El siglo XX dio inicio con el paradigma científico natural de la patología, que fue el soporte de los subparadigmas: el anatomoclínico, de orientación morfológica; el fisiopatológico, fundado en la noción de los procesos; el etiopatológico, con enfoque causal; y, como diría Ortiz Quesada, la síntesis de todos, el modelo biomédico, con bases en la biología molecular.',
+          text: 'El siglo XX dio inicio con el paradigma científico natural de la patología, que fue el soporte de los subparadigmas: el <strong>anatomoclínico</strong>, de orientación morfológica; el <strong>fisiopatológico</strong>, fundado en la noción de los procesos; el <strong>etiopatológico</strong>, con enfoque causal; y, como diría Ortiz Quesada, la síntesis de todos, el <strong>modelo biomédico</strong>, con bases en la biología molecular.',
         },
       ]],
     },
@@ -190,30 +191,28 @@ export const u4: WebUnit = {
           image: {
             src: '/images/u4/mind_body.jpg',
             alt: 'Libro Mind and body: psychosomatic medicine, de Flanders Dunbar, sobre un escritorio',
-            credit: 'Gemini. (2026). Imagen del libro Mind and body: psychosomatic medicine [imagen]. Generada por inteligencia artificial de https://gemini.google.com/',
+            credit: 'Gemini. (2026). <em>Imagen del libro</em> Mind and body: psychosomatic medicine [imagen]. Generada por inteligencia artificial de https://gemini.google.com/',
           },
           blocks: [
             {
-              type: 'text',
-              paragraphs: [
-                'El siglo XX, caracterizado por su progreso científico y tecnológico, cuyo saber médico centró la visión de la enfermedad en las alteraciones orgánicas a nivel molecular, susceptibles de medición, empezó, como señala Ortiz (2004), con una ruptura epistémica en el conocimiento de la enfermedad, pues, a partir de la teoría psicoanalítica propuesta por el médico austriaco Sigmund Freud —1856-1939—, las personas pacientes empezaron a narrar sus enfermedades y padecimientos ante los médicos que les prestaban atención; fueron pacientes escuchados, visualizados como personas, por lo que la relación médico-persona enferma sobrepasó la rutina de sólo hacer las revisiones físicas.',
+              type: 'cards',
+              items: [
+                {
+                  title: 'Psicoanálisis',
+                  text: 'El psicoanálisis, iniciado a finales del siglo XIX como método terapéutico, siguió vigente durante todo el siglo XX como medicina psicosomática. Entre sus representantes, está Helen Flanders Dunbar —1902-1959—, figura pionera en la medicina psicosomática en Estados Unidos, lo que impulsó la visión integral de que las emociones y la personalidad influyen directamente en la enfermedad física (Ortiz, 2004).',
+                },
+                {
+                  title: 'Enfoque antropopatológico',
+                  text: 'Dio pie a la investigación psique-cuerpo como un todo del sujeto, en contraposición al dualismo mente-cuerpo, planteado por el filósofo francés René Descartes —1596-1650—, quien señalaba que eran entidades distintas.',
+                },
               ],
             },
           ],
         },
       ], [
         {
-          type: 'cards',
-          items: [
-            {
-              title: 'Psicoanálisis',
-              text: 'El psicoanálisis, iniciado a finales del siglo XIX como método terapéutico, siguió vigente durante todo el siglo XX como medicina psicosomática. Entre sus representantes, está Helen Flanders Dunbar —1902-1959—, figura pionera en la medicina psicosomática en Estados Unidos, lo que impulsó la visión integral de que las emociones y la personalidad influyen directamente en la enfermedad física (Ortiz, 2004).',
-            },
-            {
-              title: 'Enfoque antropopatológico',
-              text: 'Dio pie a la investigación psique-cuerpo como un todo del sujeto, en contraposición al dualismo mente-cuerpo, planteado por el filósofo francés René Descartes —1596-1650—, quien señalaba que eran entidades distintas.',
-            },
-          ],
+          type: 'callout',
+          text: 'El siglo XX, caracterizado por su progreso científico y tecnológico, cuyo saber médico centró la visión de la enfermedad en las alteraciones orgánicas a nivel molecular, susceptibles de medición, empezó, como señala Ortiz (2004), con una ruptura epistémica en el conocimiento de la enfermedad, pues, a partir de la teoría psicoanalítica propuesta por el médico austriaco Sigmund Freud —1856-1939—, las personas pacientes empezaron a narrar sus enfermedades y padecimientos ante los médicos que les prestaban atención; fueron pacientes escuchados, visualizados como personas, por lo que la relación médico-persona enferma sobrepasó la rutina de sólo hacer las revisiones físicas.'
         },
       ]],
     },
@@ -231,9 +230,9 @@ export const u4: WebUnit = {
         {
           type: 'stats',
           items: [
-            { value: '266', label: 'Inicios del siglo XX', note: 'Muertes por tuberculosis por millón de habitantes en Inglaterra.' },
-            { value: '92', label: '1962', note: 'Muertes por tuberculosis por millón de habitantes en Inglaterra.' },
-            { value: '47 → 72', label: 'Finales del siglo XX', note: 'Años de esperanza de vida en Estados Unidos.' },
+            { label: 'Inicios del siglo XX', value: '266', unit: 'muertes', note: 'por tuberculosis por millón de habitantes en Inglaterra.' },
+            { label: '1962', value: '92', unit: 'muertes', note: 'por tuberculosis por millón de habitantes en Inglaterra.' },
+            { label: 'Finales del siglo XX', value: '47 → 72', unit: 'años', note: 'de esperanza de vida en Estados Unidos.' },
           ],
         },
       ], [
@@ -243,7 +242,7 @@ export const u4: WebUnit = {
           image: {
             src: '/images/u4/doctor_estetoscopio.jpg',
             alt: 'Mano de un médico sosteniendo un estetoscopio sobre un escritorio',
-            credit: 'Gemini. (2026). Imagen de un doctor sosteniendo un estetoscopio [imagen]. Generada por inteligencia artificial de https://gemini.google.com/',
+            credit: 'Gemini. (2026). <em>Imagen de un doctor sosteniendo un estetoscopio</em> [imagen]. Generada por inteligencia artificial de https://gemini.google.com/',
           },
           blocks: [
             {
@@ -255,8 +254,8 @@ export const u4: WebUnit = {
             {
               type: 'stats',
               items: [
-                { value: '1943', label: 'IMSS', note: 'Se fundó el IMSS y empezó la creación de hospitales especializados que, después, conformarían los institutos nacionales de salud.' },
-                { value: '1960', label: 'ISSSTE', note: 'El 1 de enero, el Instituto de Seguridad y Servicios Sociales de los Trabajadores del Estado empezó a dar atención a trabajadores públicos.' },
+                { value: '1943', label: 'IMSS', note: 'En 1943, se fundó el IMSS y empezó la creación de hospitales especializados que, después, conformarían los institutos nacionales de salud.' },
+                { value: '1960', label: 'ISSSTE', note: 'El 1 de enero de 1960, el Instituto de Seguridad y Servicios Sociales de los Trabajadores del Estado (ISSSTE) empezó a dar atención a trabajadores públicos.' },
               ],
             },
           ],
@@ -273,7 +272,7 @@ export const u4: WebUnit = {
           columns: 2,
           paragraphs: [
             'El médico del siglo XX empezó prácticamente como médico general, para, de inmediato, transformarse en especialista, como lo fueron exigiendo los tiempos y los avances de la ciencia. Empezó el siglo XX con unos retos y terminó la centuria con otros.',
-            'Pedro Laín (1984) señala que, en la historia de la humanidad, nunca hubo un periodo en el que cambiara tanto la realidad del enfermar como en el que siguió a la Primera Guerra Mundial, donde se presentaron enfermedades por malnutrición, infecciosas, metabólicas, neoplásicas y traumatismos. Los desafíos que se enfrentaron al finalizar el siglo XX fueron de otra índole, dolencias cuya causa es fundamentalmente social: estrés, neurosis, violencia, alcoholismo, traumas, entre otras (Laín, 1984).',
+            'Pedro Laín (1984) señala que, <strong>en la historia de la humanidad, nunca hubo un periodo en el que cambiara tanto la realidad del enfermar</strong> como en el que siguió a la Primera Guerra Mundial, donde se presentaron enfermedades por malnutrición, infecciosas, metabólicas, neoplásicas y traumatismos. Los desafíos que se enfrentaron al finalizar el siglo XX fueron de otra índole, dolencias cuya causa es fundamentalmente social: estrés, neurosis, violencia, alcoholismo, traumas, entre otras (Laín, 1984).',
           ],
         },
       ], [
@@ -306,19 +305,19 @@ export const u4: WebUnit = {
           image: {
             src: '/images/u4/cesarea_equipo.jpg',
             alt: 'Equipo quirúrgico con batas azules realizando una cesárea en un quirófano',
-            credit: 'Commons Wikimedia. (2009). Equipo de cesárea [fotografía]. CC BY-SA 4.0. Tomada de https://commons.wikimedia.org/w/index.php?curid=6727623',
+            credit: 'Commons Wikimedia. (2009). <em>Equipo de cesárea</em> [fotografía]. CC BY-SA 4.0. Tomada de https://commons.wikimedia.org/w/index.php?curid=6727623',
           },
           blocks: [
+            {
+              // en el guion es el cuadro emergente sobre la imagen; va visible y destacado, con su redacción original
+              type: 'callout',
+              text: 'Entre los principales temas que aborda la bioética, se encuentran la eutanasia, el aborto, la anticoncepción, la fertilización <em>in vitro</em>, la ingeniería genética, la eugenesia y la clonación.',
+            },
             {
               type: 'text',
               paragraphs: [
                 'La bioética emergió en la década de 1970 como un campo interdisciplinario que abarca tanto problemáticas ecológicas como médicas. Su consolidación respondió a una serie de transformaciones e innovaciones tecnológicas, nuevos descubrimientos científicos y prácticas clínicas que, en ocasiones, vulneraron la dignidad de la persona paciente y que hicieron evidente la necesidad de establecer marcos éticos más rigurosos.',
               ],
-            },
-            {
-              type: 'list',
-              title: 'Principales temas de la bioética',
-              items: ['Eutanasia', 'Aborto', 'Anticoncepción', 'Fertilización in vitro', 'Ingeniería genética', 'Eugenesia', 'Clonación'],
             },
           ],
         },
@@ -329,12 +328,12 @@ export const u4: WebUnit = {
           image: {
             src: '/images/u4/laboratorio.jpg',
             alt: 'Investigador con bata y guantes manipulando un tubo de ensayo en un laboratorio',
-            credit: 'Commons Wikimedia. (2017). Laboratorio [fotografía]. CC BY-SA 4.0. Tomada de https://commons.wikimedia.org/w/index.php?curid=65283243',
+            credit: 'Commons Wikimedia. (2017). <em>Laboratorio</em> [fotografía]. CC BY-SA 4.0. Tomada de https://commons.wikimedia.org/w/index.php?curid=65283243',
           },
           blocks: [
             {
               type: 'callout',
-              text: 'Durante la segunda mitad del siglo XX, se impulsó la creación de comités de bioética, los cuales comenzaron a operar en instituciones de investigación y hospitales, con el propósito de regular y orientar la toma de decisiones en ámbitos sensibles.',
+              text: 'En este contexto, durante la segunda mitad del siglo XX, se impulsó la creación de comités de bioética, los cuales comenzaron a operar en instituciones de investigación y hospitales, con el propósito de regular y orientar la toma de decisiones en ámbitos sensibles.',
             },
           ],
         },
@@ -356,12 +355,13 @@ export const u4: WebUnit = {
           image: {
             src: '/images/u4/resonancia_funcional.jpg',
             alt: 'Persona entrando a un equipo de resonancia magnética funcional',
-            credit: 'Commons Wikimedia. (2019). Resonancia magnética [fotografía]. Thomas Angus, Imperial College London. CC BY-SA 4.0. Tomada de https://commons.wikimedia.org/w/index.php?curid=89222586',
+            credit: 'Commons Wikimedia. (2019). <em>Resonancia magnética</em> [fotografía]. Thomas Angus, Imperial College London. CC BY-SA 4.0. Tomada de https://commons.wikimedia.org/w/index.php?curid=89222586',
           },
           blocks: [
             {
               type: 'list',
               title: 'Logros de la medicina en la etapa moderna',
+              intro: 'Algunas aportaciones de la medicina en el siglo XX y XXI son:',
               items: [
                 'Control de enfermedades infecciosas devastadoras',
                 'Medicina altamente especializada y basada en evidencia',
@@ -378,11 +378,11 @@ export const u4: WebUnit = {
           type: 'list',
           title: 'Desafíos de la medicina en la actualidad',
           items: [
-            '<strong>Deshumanización en la relación médico-paciente:</strong> el médico ha tratado a la persona enferma con menos cortesía, olvidando que, como se cita en Laín (1984), “[…] El primer acto del tratamiento es el acto de dar la mano al enfermo” (p. 21).',
-            '<strong>Altos costos:</strong> la tecnología, muy eficiente, resultó inaccesible para un alto porcentaje de la población.',
-            '<strong>Enfermedades crónicas no cedentes:</strong> cáncer, sida, diabetes, hipertensión y enfermedades degenerativas.',
-            '<strong>Nuevas dolencias de causa social:</strong> estrés, neurosis, violencia, alcoholismo, depresión y traumatismos.',
-            'Se debe mejorar la atención a la población mayor y a la violencia familiar.',
+            '<strong>Deshumanización en la relación médico-paciente:</strong> El médico ha tratado a la persona enferma con menos cortesía, olvidando que, como se cita en Laín (1984), “[…] El primer acto del tratamiento es el acto de dar la mano al enfermo” (p. 21).',
+            '<strong>Altos costos:</strong> La tecnología, muy eficiente, resultó inaccesible para un alto porcentaje de la población.',
+            '<strong>Enfermedades crónicas no cedentes:</strong> En este punto, cabe mencionar enfermedades como cáncer, sida, diabetes, hipertensión y enfermedades degenerativas.',
+            '<strong>Nuevas dolencias de causa social:</strong> En este punto, cabe mencionar padecimientos como estrés, neurosis, violencia, alcoholismo, depresión y traumatismos.',
+            'Se debe mejorar <strong>atención a la población mayor y violencia familiar</strong>.',
           ],
         },
       ]],
@@ -397,7 +397,7 @@ export const u4: WebUnit = {
           image: {
             src: '/images/u4/auscultacion.jpg',
             alt: 'Médico auscultando a una paciente con un estetoscopio',
-            credit: 'Commons Wikimedia. (2006). Auscultación en una mujer [fotografía]. Dominio público. Tomada de https://commons.wikimedia.org/w/index.php?curid=6254910',
+            credit: 'Commons Wikimedia. (2006). <em>Auscultación en una mujer</em> [fotografía]. Dominio público. Tomada de https://commons.wikimedia.org/w/index.php?curid=6254910',
           },
           blocks: [
             {

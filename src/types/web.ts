@@ -5,17 +5,20 @@
 export interface Img {
   src: string;
   alt: string;
-  credit?: string;
+  credit?: string; // admite HTML (cursivas del título de la obra)
 }
 
 export type Block =
   | { type: 'text'; paragraphs: string[]; columns?: 2 }
   | { type: 'split'; image: Img; title?: string; blocks: Block[]; reverse?: boolean }
-  | { type: 'stats'; items: { value: string; label: string; note?: string }[] }
+  // label va arriba (fecha o contexto); unit sigue al número en tamaño medio; note continúa la frase
+  | { type: 'stats'; items: { value: string; unit?: string; label?: string; note?: string }[] }
   | { type: 'cards'; items: { title: string; text: string }[]; columns?: 2 } // text admite HTML (p. ej. <ul>)
-  | { type: 'list'; title?: string; items: string[]; refs?: boolean }
+  | { type: 'list'; title?: string; intro?: string; items: string[]; refs?: boolean }
   | { type: 'hotspots'; image: Img; points: { x: number; y: number; title: string; text: string; image?: Img }[] }
-  | { type: 'callout'; text: string };
+  | { type: 'callout'; text: string }
+  | { type: 'row'; blocks: Block[] } // dos o más bloques lado a lado (como split, pero sin foto)
+  | { type: 'bars'; title?: string; unit?: string; items: { value: number; label: string }[] }; // barras proporcionales
 
 export type Screen = Block[];
 

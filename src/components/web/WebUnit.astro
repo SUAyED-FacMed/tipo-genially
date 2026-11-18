@@ -32,7 +32,7 @@ const slides: SlideRef[] = [
       {unit.author && <p class="cover__sub reveal">{unit.author}</p>}
       {sections[0] && <a class="cover__cta reveal" href={`#${sections[0].id}`}>Comenzar →</a>}
     </div>
-    {unit.cover.credit && <p class="cover__credit">{unit.cover.credit}</p>}
+    {unit.cover.credit && <p class="cover__credit" set:html={unit.cover.credit} />}
   </section>
 
   {sections.map((s, i) => s.screens.map((blocks, k) => (
